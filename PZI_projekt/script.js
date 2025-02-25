@@ -12,37 +12,19 @@ async function fetchData(){
     const data = await response.json();
     console.log(data.length);
     
-    //ALL CODE THAT NEEDS DATA HAS TO BE INSIDE OF TRY{}
+    //ALL CODE THAT NEEDS DATA HAS TO BE INSIDE OF TRY
 
-    const noviBotun = document.getElementById("n");
-    noviBotun.addEventListener("click",novo);
-    function novo(){
-      alert("YOO")
-      //reaching for template element for card
-      const eventCardTemplate = document.getElementById("event-template");
-      //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
-      const eventCard = eventCardTemplate.content.cloneNode(true);
-      //accessing and changing image inside of newly created card
-      const eventCardImage = eventCard.querySelector("img");
-      eventCardImage.setAttribute("src","images/the-dream.jpg");
-      //accessing and changing textual data of newly created card
-      const eventCardTitle = eventCard.querySelector(".event-title");
-      eventCardTitle.textContent = data[0].country;
-      //appending newly created card to flexbox where all other cards are
-      document.getElementById("events-container").append(eventCard);
-  }
-
-  //enable dropdown for location
-  const selectLocation = document.getElementById("location");
-  selectLocation.addEventListener("click",dropdownLocation);
-  function dropdownLocation(){
-    for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
-      const selectLocation = document.getElementById("location");
-      const optionLocation = document.createElement("option");
-      optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
-      selectLocation.appendChild(optionLocation);
+    //enable dropdown for location
+    const selectLocation = document.getElementById("location");
+    selectLocation.addEventListener("click",dropdownLocation);
+    function dropdownLocation(){
+      for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
+        const selectLocation = document.getElementById("location");
+        const optionLocation = document.createElement("option");
+        optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
+        selectLocation.appendChild(optionLocation);
+      }
     }
-  }
   
   }
   catch(error){
@@ -71,23 +53,39 @@ function hideFormForNewEvent(){
     }
     
 }
+//function that gets info from form (EXCEPT DATE) and calls a function that makes a new card and adds it to flexbox
+const submitButton = document.getElementById("submit");
+submitButton.addEventListener("click",getFormInfo);
+function getFormInfo(){
+  const title = document.getElementById("title").value;
+  const imageURL = document.getElementById("image").value;
+  const description = document.getElementById("description").value;
+  const select = document.querySelector("#location").value;
+  alert(title + imageURL + description + select);
+
+  newCard(title,imageURL,description,select);
+}
 
 //const eventCard = document.createElement("p");
 //eventCard.innerHTML = "IAMHEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
 //const eventsContainer = document.getElementById("events-container");
 //eventsContainer.appendChild(eventCard);
-/*
-function novo(data){
+
+function newCard(title,imageURL,description,select){
     //reaching for template element for card
     const eventCardTemplate = document.getElementById("event-template");
     //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
     const eventCard = eventCardTemplate.content.cloneNode(true);
     //accessing and changing image inside of newly created card
     const eventCardImage = eventCard.querySelector("img");
-    eventCardImage.setAttribute("src","images/the-dream.jpg");
+    eventCardImage.setAttribute("src",imageURL);
     //accessing and changing textual data of newly created card
     const eventCardTitle = eventCard.querySelector(".event-title");
-    eventCardTitle.textContent = data[0];
+    eventCardTitle.textContent = title;
+    const eventCardDescription = eventCard.querySelector(".event-description");
+    eventCardDescription.textContent = description;
+    const eventCardLocation = eventCard.querySelector(".event-location");
+    eventCardLocation.textContent = select;
     //appending newly created card to flexbox where all other cards are
     document.getElementById("events-container").append(eventCard);
-}*/
+}
