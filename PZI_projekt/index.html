@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PZI_project_art_events</title>
+        <link rel="stylesheet" href="style.css">
+
+        <template id="event-template">
+            <article class="event">
+                <img src="" alt="" />
+                <div class="event-info">
+                    <div class="event-title"></div>
+                    <div class="event-location"></div>
+                    <div class="event-duration"></div>
+                    <hr />
+                    <div class="event-description"></div>
+                </div>
+            </article>
+        </template>
+
+        
+    </head>
+    <body>
+        <header>
+            <h1><strong>Add filter here</strong></h1>
+            <button onclick="novo()">Novo</button>
+        </header>
+        <main>
+            
+            <div id="events-container">
+                <article class="event">
+                    <img src="images/the-dream.jpg" alt="Pablo Picasso The Dream"/>
+                    <div class="event-info">
+                        <div class="event-title">Pablo Picasso Art Exhibit</div>
+                        <div class="event-location">Zagreb, Croatia</div>
+                        <div class="event-duration">1.2.2025. - 1.3.2025.</div>
+                        <hr />
+                        <div class="event-description">
+                            Pablo Picasso is probably the most important figure of the 20th century, in terms of art,
+                            and art movements that occurred over this period. Before the age of 50, the Spanish born
+                            artist had become the most well-known name in modern art, with the most distinct style 
+                            and eye for artistic creation. There had been no other artists, prior to Picasso, who had
+                            such an impact on the art world, or had a mass following of fans and critics alike, as he did.
+                            Take a moment to get lost in the grand lie that is art,which reveals truth,at this exhibition!
+                        </div>
+                    </div>
+                </article>
+                <article class="event">
+                    <img src="images/trakoscan.jpg" alt="Slava Raškaj Trakošćan"/>
+                    <div class="event-info">
+                        <div class="event-title">Slava Raškaj Art Exhibit</div>
+                        <div class="event-location">Pariz, France</div>
+                        <div class="event-duration">1.2.2025. - 1.3.2025.</div>
+                        <hr />
+                        <div class="event-description">
+                            Slava Raškaj was a Croatian painter, considered to be the greatest Croatian watercolorist of the late 
+                            19th and early 20th century. Deaf since birth, Raškaj was schooled in Vienna and Zagreb, where her mentor 
+                            was the renowned Croatian painter Bela Čikoš Sesija. In the 1890s her works were exhibited around Europe, 
+                            including at the 1900 Expo in Paris. In her twenties Raškaj was diagnosed with acute depression and was 
+                            institutionalised for the last three years of her life before dying in 1906 from tuberculosis in Zagreb. 
+                            The value of her work was largely overlooked by art historians in the following decades, but in the late 
+                            1990s and early 2000s interest in her work was revived. We are calling all watercolor appreciators to visit
+                            us this month.
+                        </div>
+                    </div>
+                </article>
+                <article class="event">
+                    <img src="images/statues.jpg" alt="Marija Ujević-Galetović statues"/>
+                    <div class="event-info">
+                        <div class="event-title">Marija Ujević-Galetović Art Exhibit</div>
+                        <div class="event-location">Zagreb, Croatia</div>
+                        <div class="event-duration">1.2.2025. - 1.3.2025.</div>
+                        <hr />
+                        <div class="event-description">
+                            Ujević-Galetović's work included portraits and figures. She studied sculpture at the Central School of Art 
+                            and Design in London. Since 1987 she had been teaching at the Academy of Fine Arts, University of Zagreb,
+                            where she was appointed full professor in 1995. She was also an active member of the Croatian Academy of 
+                            Sciences and Arts.She was the creator of numerous outdoor and indoor public sculptures. Come and witness
+                            her works, take them in from all angles and think...understand.
+                        </div>
+                    </div>
+                </article>
+                <article class="event">
+                    <img src="images/Red_vineyards.jpg" alt="Vincent Willem van Goth Red vineyards"/>
+                    <div class="event-info">
+                        <div class="event-title">Vincent Willem van Goth Art Exhibit</div>
+                        <div class="event-location">London, United Kingdom</div>
+                        <div class="event-duration">1.2.2025. - 1.3.2025.</div>
+                        <hr />
+                        <div class="event-description">
+                            Vincent Willem van Gogh was a Dutch Post-Impressionist painter who is among the most famous and influential 
+                            figures in the history of Western art. In just over a decade, he created approximately 2,100 artworks, 
+                            including around 860 oil paintings, most of them in the last two years of his life. His oeuvre includes 
+                            landscapes, still lifes, portraits, and self-portraits, most of which are characterised by bold colours and 
+                            dramatic brushwork that contributed to the rise of expressionism in modern art. Everyone is welcome to lose
+                            themselves in magical art of a man that saw and felt the world differently than most.
+                        </div>
+                    </div>
+                </article>
+                <article class="event">
+                    <img src="images/Otobong_Nkanga_-_Glimmer_Fragments__2014_01.jpg" alt="Otobong Nkanga Glimmer Fragments"/>
+                    <div class="event-info">
+                        <div class="event-title">Otobong Nkanga Art Show</div>
+                        <div class="event-location">Rome, Italy</div>
+                        <div class="event-duration">1.2.2025. - 1.3.2025.</div>
+                        <hr />
+                        <div class="event-description">
+                            Otobong Nkanga (born 1974) is a Nigerian-born visual artist, tapestry maker and performance artist, based in Antwerp, 
+                            Belgium. In 2015, she won the Yanghyun Prize.In her work she explores the social and topographical changes of her environment,
+                            observes their inherent complexities and understands how resources such as soil and earth, and their potential values, are 
+                            subject to regional and cultural analysis. Her work has been featured in many institutions including the Tate Modern the KW 
+                            Institute (Berlin), the Stedelijk Museum and the biennale of Sharjah. She also took part in the 20th Biennale of Sydney. Enjoy :3
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </main>
+        <footer>
+            <button id="add-event-button" onclick="showFormForNewEvent()">Add new event</button>
+            <div id="add-event-form-wrapper" class="invisible">
+                <form>
+                    <label for="title">Input name of the event:</label>
+                    <input id="title" type="text"/>
+                    <label for="image">Select picture:</label>
+                    <input id="image" type="url" />
+                    <label for="description">Event's description:</label>
+                    <textarea id="description"></textarea>
+                    <label for="location">Location:</label>
+                    <input id="location" type="text" />
+                    <label for="duration">Duration:</label>
+                    <input id="duration" type="date" />
+                    <input id="submit" value="SUBMIT" type="submit" onclick="hideFormForNewEvent()"/>
+                </form>
+            </div>
+
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>

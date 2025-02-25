@@ -1,0 +1,134 @@
+html {
+    font-size: 62.5%;
+}
+main {
+    background-image: url(images/background.jpg);
+}
+
+body {
+    background-image: url(images/white.webp);
+}
+
+img {
+    /*max-width for all img is advised for responsive web design*/
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+#events-container {
+    padding: 1.5% 1%;
+    /*flexbox over grid cause flexbox is more flexible and thus works better when we need responsive design*/
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
+	gap: 20px 15px;
+}
+.event {
+    background-color: aliceblue;
+    border: solid 10px black;
+    flex-basis: 30%;
+    /*padding ensures that img and text are not glued to borders of events*/
+    padding: 15px;
+}
+
+.event-info {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+
+.event-title {
+    font-size: 4rem;
+    margin: 1.5rem;
+}
+
+.event-location {
+    font-size: 3em;
+    margin: 1rem;
+}
+
+.event-duration {
+    font-size: 3em;
+    margin: 1rem;
+}
+
+.event-description {
+    /*ch helps limit maximum of characters per line of text, 80 is advised upper limit for responsive web design*/
+    max-width: 80ch;
+    font-size: 2em;
+}
+
+#add-event-button {
+    border: none;
+	color: black;
+	background-color: rgb(204, 204, 204);
+	padding: 50px 15px;
+	border-radius: 5px;
+    width: 100%;
+    height: 10%;
+    font-size: 15ch;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bolder;
+}
+
+#add-event-button:hover {
+    color: white;
+    background-image: url(images/button_hover.jpg);
+}
+#add-event-form-wrapper.visible {
+    background-color: whitesmoke;
+}
+
+form {
+    display: grid;
+    grid-column: 1fr;
+    font-size: 10ch;
+    background-image: url(images/white.webp);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+form label {
+    margin: 1rem;
+}
+
+form input,#description {
+    height: 3rem;
+    font-size: 2.5rem;
+}
+
+#submit {
+    margin: 2.5rem;
+    min-height: 5rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.invisible {
+    display: none;
+}
+
+@media screen and (max-width: 900px){
+
+    #events-container {
+        padding: 2.5% 2%;
+    }
+    .event {
+        border: solid 10px black;
+        flex-basis: 50%;
+        padding: 10px;
+    }
+}
+
+/*for mobile phones*/
+@media screen and (max-width: 600px){
+
+    #events-container {
+        padding: 5% 3%;
+    }
+    .event {
+        border: solid 10px black;
+        flex-basis: 100%;
+        padding: 5px;
+    }
+}
