@@ -1,24 +1,21 @@
-async function fetchData() { 
-    try { 
-      const apiUrl = 'https://api.example.com/data'; // URL of the resource 
-      const options = { 
-        method: 'GET', // HTTP request method 
-        headers: { 
-          'Content-Type': 'application/json', 
-          // You can add more headers as needed 
-        }, 
-        // Additional options, such as body for POST requests 
-      }; 
-      const response = await fetch(apiUrl, options); 
-      if (!response.ok) { 
-        throw new Error('Network response was not ok'); 
-      } 
-      const data = await response.json(); 
-      return data; 
-    } catch (error) { 
-      console.error('Error:', error); 
-    } 
+
+async function fetchData(){
+  //try and catch for safety
+  try{
+    const response = await fetch("https://raw.githubusercontent.com/samayo/country-json/refs/heads/master/src/country-by-capital-city.json");
+    if(!response.ok){
+      throw new Error("Something went wrong, couldn't fetch data!");
+    }
+    //data is an array of objects [{country:,city:}, ...], json helps with formating
+    const data = await response.json();
+    console.log(data);
+  }
+  catch(error){
+    console.error(error);
+  }
 }
+//calling function to set it into action
+fetchData();
 
 //when button AddNewEvent is clicked, this function hides the button and reveals the form for inputing event information
 function showFormForNewEvent(){
