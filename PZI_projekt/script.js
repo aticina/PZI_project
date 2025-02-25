@@ -10,7 +10,7 @@ async function fetchData(){
     }
     //data is an array of objects [{country:,city:}, ...], json helps with formating
     const data = await response.json();
-    console.log(data[0]);
+    console.log(data.length);
     
     //ALL CODE THAT NEEDS DATA HAS TO BE INSIDE OF TRY{}
 
@@ -32,6 +32,18 @@ async function fetchData(){
       document.getElementById("events-container").append(eventCard);
   }
 
+  //enable dropdown for location
+  const selectLocation = document.getElementById("location");
+  selectLocation.addEventListener("click",dropdownLocation);
+  function dropdownLocation(){
+    for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
+      const selectLocation = document.getElementById("location");
+      const optionLocation = document.createElement("option");
+      optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
+      selectLocation.appendChild(optionLocation);
+    }
+  }
+  
   }
   catch(error){
     console.error(error);

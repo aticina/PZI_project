@@ -93,7 +93,7 @@ form label {
     margin: 1rem;
 }
 
-form input,#description {
+form input,#description,#location {
     height: 3rem;
     font-size: 2.5rem;
 }
