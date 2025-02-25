@@ -1,3 +1,5 @@
+//calling function to set it into action
+fetchData();
 
 async function fetchData(){
   //try and catch for safety
@@ -8,14 +10,33 @@ async function fetchData(){
     }
     //data is an array of objects [{country:,city:}, ...], json helps with formating
     const data = await response.json();
-    console.log(data);
+    console.log(data[0]);
+    
+    //ALL CODE THAT NEEDS DATA HAS TO BE INSIDE OF TRY{}
+
+    const noviBotun = document.getElementById("n");
+    noviBotun.addEventListener("click",novo);
+    function novo(){
+      alert("YOO")
+      //reaching for template element for card
+      const eventCardTemplate = document.getElementById("event-template");
+      //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
+      const eventCard = eventCardTemplate.content.cloneNode(true);
+      //accessing and changing image inside of newly created card
+      const eventCardImage = eventCard.querySelector("img");
+      eventCardImage.setAttribute("src","images/the-dream.jpg");
+      //accessing and changing textual data of newly created card
+      const eventCardTitle = eventCard.querySelector(".event-title");
+      eventCardTitle.textContent = data[0].country;
+      //appending newly created card to flexbox where all other cards are
+      document.getElementById("events-container").append(eventCard);
+  }
+
   }
   catch(error){
     console.error(error);
   }
 }
-//calling function to set it into action
-fetchData();
 
 //when button AddNewEvent is clicked, this function hides the button and reveals the form for inputing event information
 function showFormForNewEvent(){
@@ -43,8 +64,8 @@ function hideFormForNewEvent(){
 //eventCard.innerHTML = "IAMHEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
 //const eventsContainer = document.getElementById("events-container");
 //eventsContainer.appendChild(eventCard);
-
-function novo(){
+/*
+function novo(data){
     //reaching for template element for card
     const eventCardTemplate = document.getElementById("event-template");
     //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
@@ -54,7 +75,7 @@ function novo(){
     eventCardImage.setAttribute("src","images/the-dream.jpg");
     //accessing and changing textual data of newly created card
     const eventCardTitle = eventCard.querySelector(".event-title");
-    eventCardTitle.textContent = "TITLE";
+    eventCardTitle.textContent = data[0];
     //appending newly created card to flexbox where all other cards are
     document.getElementById("events-container").append(eventCard);
-}
+}*/
