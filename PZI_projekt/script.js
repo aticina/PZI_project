@@ -97,6 +97,8 @@ function newCard(title,imageURL,description,select,startDate,endDate){
     document.getElementById("events-container").append(eventCard);
 }
 
+//Delete card
+
 //DATE START
 const datepicker = document.querySelector(".datepicker");
 const dateInput = document.querySelector(".date-input");
