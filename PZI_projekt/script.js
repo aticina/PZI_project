@@ -89,3 +89,5 @@ function newCard(title,imageURL,description,select){
     //appending newly created card to flexbox where all other cards are
     document.getElementById("events-container").append(eventCard);
 }
+
+//DATE

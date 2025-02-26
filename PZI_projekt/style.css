@@ -77,7 +77,7 @@ img {
     color: white;
     background-image: url(images/button_hover.jpg);
 }
-#add-event-form-wrapper.visible {
+#add-event-form-wrapper {
     background-color: whitesmoke;
 }
 
@@ -98,6 +98,104 @@ form input,#description,#location {
     font-size: 2.5rem;
 }
 
+.datepicker-container {
+    position: relative;
+}
+
+.datepicker {
+    position: absolute;
+    top: 100%;
+    z-index: 100;
+    margin-top: 0.2rem;
+    background-image: url("images/background.jpg");
+    padding: 1rem;
+}
+
+.datepicker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+}
+
+.datepicker-header select, .datepicker-header input {
+    font-size: 1.4rem;
+    border: 1px solid white;
+}
+
+.datepicker-header input {
+    max-width: 15rem;
+    border: solid black;
+}
+
+.datepicker-header select {
+    border: solid black;
+}
+
+.datepicker-header button {
+    color: black;
+    padding: 0.5rem 1rem;
+}
+
+.datepicker-header button:hover {
+    background-color: rgb(167, 165, 165);
+}
+
+.datepicker-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+.datepicker-footer button {
+    background: white;
+    padding: 0.5rem 1rem;
+}
+
+.datepicker button {
+    border: solid black;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.days,.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    margin-block: 1rem;
+}
+
+.days span {
+    font-size: 2.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+.dates button {
+    color: black;
+    aspect-ratio: 1;
+}
+/*.today needs to be styled before hover, otherwise hover does not work on it*/
+.dates button.today {
+    background-color: black;
+    color: white;
+    border: solid white;
+}
+/*selected has to be styled after today so we can see when we select today*/
+.dates button.selected {
+    background-color: green;
+    color: white;
+    border: solid white;
+}
+
+
+.dates button:hover {
+    background-color: rgb(161, 161, 161);
+}
+
+
 #submit {
     margin: 2.5rem;
     min-height: 5rem;
@@ -114,9 +212,9 @@ form input,#description,#location {
         padding: 2.5% 2%;
     }
     .event {
-        border: solid 10px black;
+        border: solid 1rem black;
         flex-basis: 50%;
-        padding: 10px;
+        padding: 1rem;
     }
 }
 
@@ -127,8 +225,8 @@ form input,#description,#location {
         padding: 5% 3%;
     }
     .event {
-        border: solid 10px black;
+        border: solid 1rem black;
         flex-basis: 100%;
-        padding: 5px;
+        padding: 0.5rem;
     }
 }
