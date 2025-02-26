@@ -99,6 +99,7 @@ form input,#description,#location {
 }
 
 .datepicker-container {
+    display: block;
     position: relative;
 }
 
