@@ -66,6 +66,8 @@ function getFormInfo(){
   const endDate = document.getElementById("end-date").value;
   alert(title + imageURL + description + select + startDate + endDate);
 
+  //check dates
+
   newCard(title,imageURL,description,select,startDate,endDate);
 }
 

@@ -39,6 +39,10 @@ img {
     font-weight: bold;
 }
 
+.x-icon {
+    position: absolute;
+}
+
 .event-title {
     font-size: 4rem;
     margin: 1.5rem;
