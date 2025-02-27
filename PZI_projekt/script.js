@@ -55,20 +55,23 @@ function hideFormForNewEvent(){
 }
 
 //function that gets info from form (EXCEPT DATE) and calls a function that makes a new card and adds it to flexbox
-const submitButton = document.getElementById("submit");
+const submitButton = document.getElementById("n");
 submitButton.addEventListener("click",getFormInfo);
 function getFormInfo(){
+
   const title = document.getElementById("title").value;
   const imageURL = document.getElementById("image").value;
   const description = document.getElementById("description").value;
   const select = document.querySelector("#location").value;
   const startDate = document.getElementById("start-date").value;
   const endDate = document.getElementById("end-date").value;
+  newCard(title,imageURL,description,select,startDate,endDate);
   alert(title + imageURL + description + select + startDate + endDate);
 
-  //check dates
+  /*let's try this but with localStorage, we save data from form on loaclStorage and then in newCard we get info from localStroage
+  localStorage.setItem("title", document.getElementById("title").value);
+  newCard();*/
 
-  newCard(title,imageURL,description,select,startDate,endDate);
 }
 
 //const eventCard = document.createElement("p");
@@ -77,27 +80,39 @@ function getFormInfo(){
 //eventsContainer.appendChild(eventCard);
 
 function newCard(title,imageURL,description,select,startDate,endDate){
-    //reaching for template element for card
-    const eventCardTemplate = document.getElementById("event-template");
-    //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
-    const eventCard = eventCardTemplate.content.cloneNode(true);
-    //accessing and changing image inside of newly created card
-    const eventCardImage = eventCard.querySelector("img");
-    eventCardImage.setAttribute("src",imageURL);
-    //accessing and changing textual data of newly created card
-    const eventCardTitle = eventCard.querySelector(".event-title");
-    eventCardTitle.textContent = title;
-    const eventCardDescription = eventCard.querySelector(".event-description");
-    eventCardDescription.textContent = description;
-    const eventCardLocation = eventCard.querySelector(".event-location");
-    eventCardLocation.textContent = select;
-    const eventCardDuration = eventCard.querySelector(".event-duration");
-    eventCardDuration.textContent = `${startDate} - ${endDate}`;
-    //appending newly created card to flexbox where all other cards are
-    document.getElementById("events-container").append(eventCard);
+  
+  //reaching for template element for card
+  const eventCardTemplate = document.getElementById("event-template");
+  //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
+  const eventCard = eventCardTemplate.content.cloneNode(true);
+
+  //accessing and changing image inside of newly created card
+  const eventCardImage = eventCard.querySelector("img");
+  eventCardImage.setAttribute("src",imageURL);
+  //accessing and changing textual data of newly created card
+  const eventCardTitle = eventCard.querySelector(".event-title");
+  eventCardTitle.textContent = title;
+  const eventCardDescription = eventCard.querySelector(".event-description");
+  eventCardDescription.textContent = description;
+  const eventCardLocation = eventCard.querySelector(".event-location");
+  eventCardLocation.textContent = select;
+  const eventCardDuration = eventCard.querySelector(".event-duration");
+  eventCardDuration.textContent = `${startDate} - ${endDate}`;
+  //appending newly created card to flexbox where all other cards are
+  document.getElementById("events-container").append(eventCard);
+
+  /*local storgae stuff that does not work yet
+  const eventCardTemplate = document.getElementById("event-template");
+  const eventCard = eventCardTemplate.content.cloneNode(true);
+  alert(localStorage.getItem("title"))
+  eventCard.querySelector(".event-title").innerHTML = localStorage.getItem("title");
+  document.getElementById("events-container").append(eventCard);*/
 }
 
 //Delete card
+//id cards and id x-icon with same number an itterate in creatiion
+//how to know which iterable is next-maybe get id number from last in list of kids and +1 that
+//or count the kids
 
 //DATE START
 const datepicker = document.querySelector(".datepicker");
