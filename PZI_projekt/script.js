@@ -67,6 +67,7 @@ function getFormInfo(){
   const endDate = document.getElementById("end-date").value;
   newCard(title,imageURL,description,select,startDate,endDate);
   alert(title + imageURL + description + select + startDate + endDate);
+  
 
   /*let's try this but with localStorage, we save data from form on loaclStorage and then in newCard we get info from localStroage
   localStorage.setItem("title", document.getElementById("title").value);
@@ -74,17 +75,23 @@ function getFormInfo(){
 
 }
 
-//const eventCard = document.createElement("p");
-//eventCard.innerHTML = "IAMHEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
-//const eventsContainer = document.getElementById("events-container");
-//eventsContainer.appendChild(eventCard);
-
 function newCard(title,imageURL,description,select,startDate,endDate){
   
   //reaching for template element for card
   const eventCardTemplate = document.getElementById("event-template");
   //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
   const eventCard = eventCardTemplate.content.cloneNode(true);
+  //setting card id
+  //first find last card in collection, its id is what we are after
+  const lastCardInCollection = document.querySelector("#events-container").lastElementChild;
+  //if there is no children in collection we will get null and in that case id should be 0, otherwise it is id of last child++
+  let newID = 0;
+  if(lastCardInCollection !== null){
+    newID = parseInt(lastCardInCollection.getAttribute("id")) + 1;
+  }
+  //now that we know id of last card in collection we can make id for new card that will be appened on the end of collection
+  eventCard.querySelector(".event").setAttribute("id", newID );
+
 
   //accessing and changing image inside of newly created card
   const eventCardImage = eventCard.querySelector("img");
@@ -133,7 +140,6 @@ applyButton.addEventListener("click", () => {
   let year = selectedDate.getFullYear();
   let month = selectedDate.getMonth();
 
-  //selection CHECK LATER IF IT WORKS AS PLANNED CURRENTLLY HAVE SOME SHOWING ISSUES CAUS EPAGE KEEPS RELOADING
   function handleDateClick(e){
     const button = e.target;
     //remove selected state from previously selected
