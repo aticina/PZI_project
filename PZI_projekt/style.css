@@ -16,6 +16,38 @@ img {
     margin: auto;
 }
 
+#filter-stuff-container {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: flex-start;
+}
+
+.filter {
+    font-size: 5rem;
+    font-weight: 500;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.filter-input {
+    font-size: 3rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 0.5rem;
+    width: fit-content;
+}
+
+#filter-button,#remove-filter-button {
+    font-size: 3rem;
+    font-weight: bolder;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 1rem;
+}
+
+#filter-button:hover,#remove-filter-button:hover {
+    background-image: url(images/button_hover.jpg);
+}
 #events-container {
     padding: 1.5% 1%;
     /*flexbox over grid cause flexbox is more flexible and thus works better when we need responsive design*/
@@ -246,4 +278,9 @@ form input,#description,#location {
         flex-basis: 100%;
         padding: 0.5rem;
     }
+
+    .filter-input {
+        width: min-content;
+    }
+
 }

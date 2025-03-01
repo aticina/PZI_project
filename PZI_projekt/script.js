@@ -25,6 +25,55 @@ async function fetchData(){
         selectLocation.appendChild(optionLocation);
       }
     }
+    //filter search bar,reuses some code from form regarding location
+    const filterSelectLocation = document.getElementById("filter-location");
+    filterSelectLocation.addEventListener("click",dropdownLocationForFilter);
+    function dropdownLocationForFilter(){
+      for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
+        const selectLocation = document.getElementById("filter-location");
+        const optionLocation = document.createElement("option");
+        optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
+        selectLocation.appendChild(optionLocation);
+      }
+    }
+
+    const filterButton = document.getElementById("filter-button");
+    filterButton.addEventListener("click", filterFunction);
+    function filterFunction(){
+      const filterInput = document.querySelector(".filter-input").value;
+      alert(filterInput);
+      const allEvents = document.querySelector("#events-container").children;
+
+      for(let i=0; i<allEvents.length; i++){
+        //alert(allEvents[i].getAttribute("id"));
+        //alert(allEvents[i].querySelector("div.event-location").textContent.toUpperCase());
+
+        if(filterInput == ""){
+          //nothing happends if person accidentally clicks filter button withoout selecting anything
+        }
+        else if(filterInput != allEvents[i].querySelector("div.event-location").textContent.toUpperCase()){
+          allEvents[i].classList.add("invisible");
+        }
+      }
+
+    }
+
+    const removeFilterButton = document.getElementById("remove-filter-button");
+    removeFilterButton.addEventListener("click", () => {
+
+      const allEvents = document.querySelector("#events-container").children;
+
+      for(let i=0; i<allEvents.length; i++){
+
+        if(allEvents[i].classList.contains("invisible")){
+
+          allEvents[i].classList.remove("invisible");
+
+        }
+      }
+
+    });
+    
   
   }
   catch(error){
@@ -117,11 +166,16 @@ function newCard(title,imageURL,description,select,startDate,endDate){
 }
 
 //Delete card
-//id cards and id x-icon with same number an itterate in creatiion
-//how to know which iterable is next-maybe get id number from last in list of kids and +1 that
-//or count the kids
+const deleteButton = document.getElementsByClassName("x-icon");
+deleteButton.addEventListener("click", (deleteButton) => {
+  //this function is entered when one of x-icons is clicked
+  //we need to specify which event it belongs to, let's try to reach its parent
+  alert("Im in");
+  const deleteThisEvent = deleteButton.parentElement;
+  alert(deleteThisEvent.value);
+});
 
-//DATE START
+//DATE START-followed tutorial https://www.youtube.com/watch?v=lDv8YsTgSAs
 const datepicker = document.querySelector(".datepicker");
 const dateInput = document.querySelector(".date-input");
 dateInput.addEventListener("click", () => { datepicker.hidden = false; });
@@ -238,4 +292,4 @@ applyButton.addEventListener("click", () => {
     displayDates();
   })
 
-  
+  //Filter function
