@@ -86,13 +86,15 @@ function onLoadFunction(){
 
   for(let i=0; i<Object.keys(localStorage).length; i++){
 
+    const arrayOfKeys = Object.keys(localStorage);
+
     //let's get events/objects one by one as we loop, 1)get object 2)turn it from string into object
-    const eventFromLocalStorage = JSON.parse(localStorage.getItem(i));
+    const eventFromLocalStorage = JSON.parse(localStorage.getItem(arrayOfKeys[i]));
     
     const eventCardTemplate = document.getElementById("event-template");
     const eventCard = eventCardTemplate.content.cloneNode(true);
 
-    eventCard.querySelector(".event").setAttribute("id", i );
+    eventCard.querySelector(".event").setAttribute("id", arrayOfKeys[i] );
 
     const eventCardImage = eventCard.querySelector("img");
     eventCardImage.setAttribute("src", eventFromLocalStorage.storeImageURL);
@@ -162,8 +164,13 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   const lastCardInCollection = document.querySelector("#events-container").lastElementChild;
   //if there is no children in collection we will get null and in that case id should be 0, otherwise it is id of last child++
   let newID = 0;
-  if(lastCardInCollection !== null){
+  if(lastCardInCollection !== null && localStorage.getItem(newID) === null){
     newID = parseInt(lastCardInCollection.getAttribute("id")) + 1;
+  }
+  else{
+    while(localStorage.getItem(newID) !== null){
+      newID = newID +1;
+    }
   }
   //now that we know id of last card in collection we can make id for new card that will be appened on the end of collection
   eventCard.querySelector(".event").setAttribute("id", newID );
