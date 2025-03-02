@@ -41,12 +41,9 @@ async function fetchData(){
     filterButton.addEventListener("click", filterFunction);
     function filterFunction(){
       const filterInput = document.querySelector(".filter-input").value;
-      alert(filterInput);
       const allEvents = document.querySelector("#events-container").children;
 
       for(let i=0; i<allEvents.length; i++){
-        //alert(allEvents[i].getAttribute("id"));
-        //alert(allEvents[i].querySelector("div.event-location").textContent.toUpperCase());
 
         if(filterInput == ""){
           //nothing happends if person accidentally clicks filter button withoout selecting anything
@@ -81,6 +78,42 @@ async function fetchData(){
   }
 }
 
+function onLoadFunction(){
+
+  //load in cards from localStorage
+  
+  //we get information about how many cards are inside of storage that we need to put on page as soon as it loads
+
+  for(let i=0; i<Object.keys(localStorage).length; i++){
+
+    //let's get events/objects one by one as we loop, 1)get object 2)turn it from string into object
+    const eventFromLocalStorage = JSON.parse(localStorage.getItem(i));
+    alert(eventFromLocalStorage.storeTitle);
+    
+    const eventCardTemplate = document.getElementById("event-template");
+    const eventCard = eventCardTemplate.content.cloneNode(true);
+
+    eventCard.querySelector(".event").setAttribute("id", i );
+
+    const eventCardImage = eventCard.querySelector("img");
+    eventCardImage.setAttribute("src", eventFromLocalStorage.storeImageURL);
+    
+    const eventCardTitle = eventCard.querySelector(".event-title");
+    eventCardTitle.textContent = eventFromLocalStorage.storeTitle;
+
+    const eventCardDescription = eventCard.querySelector(".event-description");
+    eventCardDescription.textContent = eventFromLocalStorage.storeDescription;
+
+    const eventCardLocation = eventCard.querySelector(".event-location");
+    eventCardLocation.textContent = eventFromLocalStorage.storeLocation;
+
+    const eventCardDuration = eventCard.querySelector(".event-duration");
+    eventCardDuration.textContent = `${eventFromLocalStorage.storeStartDate} - ${eventFromLocalStorage.storeEndDate}`;
+
+    document.getElementById("events-container").append(eventCard);
+  }
+
+}
 //when button AddNewEvent is clicked, this function hides the button and reveals the form for inputing event information
 function showFormForNewEvent(){
     const addEventButton = document.getElementById("add-event-button");
@@ -103,7 +136,7 @@ function hideFormForNewEvent(){
     
 }
 
-//function that gets info from form (EXCEPT DATE) and calls a function that makes a new card and adds it to flexbox
+//function that gets info from form and calls a function that makes a new card and adds it to flexbox
 const submitButton = document.getElementById("n");
 submitButton.addEventListener("click",getFormInfo);
 function getFormInfo(){
@@ -116,11 +149,6 @@ function getFormInfo(){
   const endDate = document.getElementById("end-date").value;
   newCard(title,imageURL,description,select,startDate,endDate);
   alert(title + imageURL + description + select + startDate + endDate);
-  
-
-  /*let's try this but with localStorage, we save data from form on loaclStorage and then in newCard we get info from localStroage
-  localStorage.setItem("title", document.getElementById("title").value);
-  newCard();*/
 
 }
 
@@ -157,6 +185,8 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   //appending newly created card to flexbox where all other cards are
   document.getElementById("events-container").append(eventCard);
 
+  //saving card as an id:object pair in localStorage
+  localStorage.setItem(newID, JSON.stringify({ storeTitle: title, storeImageURL: imageURL, storeDescription: description, storeLocation: select, storeStartDate: startDate, storeEndDate: endDate }));
   /*local storgae stuff that does not work yet
   const eventCardTemplate = document.getElementById("event-template");
   const eventCard = eventCardTemplate.content.cloneNode(true);
@@ -291,5 +321,3 @@ applyButton.addEventListener("click", () => {
     year = yearInput.value;
     displayDates();
   })
-
-  //Filter function
