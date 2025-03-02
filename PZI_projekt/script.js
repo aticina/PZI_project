@@ -88,7 +88,6 @@ function onLoadFunction(){
 
     //let's get events/objects one by one as we loop, 1)get object 2)turn it from string into object
     const eventFromLocalStorage = JSON.parse(localStorage.getItem(i));
-    alert(eventFromLocalStorage.storeTitle);
     
     const eventCardTemplate = document.getElementById("event-template");
     const eventCard = eventCardTemplate.content.cloneNode(true);
@@ -137,7 +136,7 @@ function hideFormForNewEvent(){
 }
 
 //function that gets info from form and calls a function that makes a new card and adds it to flexbox
-const submitButton = document.getElementById("n");
+const submitButton = document.getElementById("submit");
 submitButton.addEventListener("click",getFormInfo);
 function getFormInfo(){
 
@@ -148,7 +147,7 @@ function getFormInfo(){
   const startDate = document.getElementById("start-date").value;
   const endDate = document.getElementById("end-date").value;
   newCard(title,imageURL,description,select,startDate,endDate);
-  alert(title + imageURL + description + select + startDate + endDate);
+  //alert(title + imageURL + description + select + startDate + endDate);
 
 }
 
@@ -181,7 +180,7 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   const eventCardLocation = eventCard.querySelector(".event-location");
   eventCardLocation.textContent = select;
   const eventCardDuration = eventCard.querySelector(".event-duration");
-  eventCardDuration.textContent = `${startDate} - ${endDate}`;
+  eventCardDuration.textContent = `${startDate} ~ ${endDate}`;
   //appending newly created card to flexbox where all other cards are
   document.getElementById("events-container").append(eventCard);
 
@@ -195,16 +194,22 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   document.getElementById("events-container").append(eventCard);*/
 }
 
-//Delete card
-const deleteButton = document.getElementsByClassName("x-icon");
-deleteButton.addEventListener("click", (deleteButton) => {
-  //this function is entered when one of x-icons is clicked
-  //we need to specify which event it belongs to, let's try to reach its parent
-  alert("Im in");
-  const deleteThisEvent = deleteButton.parentElement;
-  alert(deleteThisEvent.value);
-});
+//Delete card from both the screen and localStorage
+const eventContainer = document.getElementById("events-container");
+eventContainer.addEventListener("click", function(e) {
+  if(e.target.tagName === "I"){
+    e.target.parentElement.remove();
+    const keyOfEntryToRemoveFromLocalStorage = e.target.parentElement.getAttribute("id");
+    localStorage.removeItem(keyOfEntryToRemoveFromLocalStorage);
+  }
+  
+}, false);
 
+/*
+I TRIED TO MAKE FUNCTIONAL DATE PICKER, BUT IT DOES NOT FUNCTION FULLY AS EXPECTED, SO I COMMENTED ALL OF IT SO ITS BEHAVIOUR DOES NOT DISTURB OTHER FUNCTIONALITIES OF WEB PAGE
+IN CASE YOU WANT TO SEE WHAT IT'S DOING, JUST UNCOMMENT IT AND TRY TO USE IT ON WEB PAGE.
+SOME CLICKS ON IT CAUSE RELOADING OF WHOLE PAGE WHICH DISTURBS PROCESS OF MAKING NEW CARD. AND USING QUERYSELECTOR MAKES IT SO IT WORKS FOR STARTDATE ONLY, TO MAKE ONE FOR ENDDATE
+USING SAME CODE THERE WOULD BE A COPY PASTE OF HTML AND JS WITH SLIGHLTY ALTERED CLASS AND FUNCTION NAMES. CAUSE QUERYSELECTOR RETURNS FIRST ELEMENT THAT FITS REQUIREMENT.
 //DATE START-followed tutorial https://www.youtube.com/watch?v=lDv8YsTgSAs
 const datepicker = document.querySelector(".datepicker");
 const dateInput = document.querySelector(".date-input");
@@ -321,3 +326,5 @@ applyButton.addEventListener("click", () => {
     year = yearInput.value;
     displayDates();
   })
+*/
+  

@@ -8,7 +8,7 @@
 
         <template id="event-template">
             <article class="event" id="">
-                <div class="x-icon">x</div>
+                <i class="x-icon">x</i>
                 <img src="" alt="" />
                 <div class="event-info">
                     <div class="event-title"></div>
@@ -30,7 +30,6 @@
                 <button id="filter-button">Filter</button>
                 <button id="remove-filter-button">Remove filter</button>
             </div>
-            <button id="n">Novo</button>
         </header>
         <main>
             
@@ -134,6 +133,7 @@
             <button id="add-event-button" onclick="showFormForNewEvent()">Add new event</button>
             <div id="add-event-form-wrapper" class="invisible">
                 <form>
+                    
                     <label for="title">Input name of the event:</label>
                     <input id="title" type="text"/>
                     <label for="image">Select picture:</label>
