@@ -18,23 +18,48 @@ async function fetchData(){
     const selectLocation = document.getElementById("location");
     selectLocation.addEventListener("click",dropdownLocation);
     function dropdownLocation(){
-      for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
+      
+      //at max we have data.length options, this is to remove issue of options multipling each time we click the bar
+      if(document.getElementById("location").children.length < data.length){
+        for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
         const selectLocation = document.getElementById("location");
         const optionLocation = document.createElement("option");
-        optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
+
+        //if there is no city, show country only, FORMAT: "city, country"
+        if (data[countryWeAreOn].city == null){
+          optionLocation.innerHTML = `${data[countryWeAreOn].country}`.toUpperCase();
+        }
+        else {
+          optionLocation.innerHTML = `${data[countryWeAreOn].city}, ${data[countryWeAreOn].country}`.toUpperCase();
+        }
+        
         selectLocation.appendChild(optionLocation);
+        }
       }
+      
     }
     //filter search bar,reuses some code from form regarding location
     const filterSelectLocation = document.getElementById("filter-location");
     filterSelectLocation.addEventListener("click",dropdownLocationForFilter);
     function dropdownLocationForFilter(){
-      for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
+      if(document.getElementById("filter-location").children.length < data.length){
+        for(let countryWeAreOn = 0; countryWeAreOn < data.length ; countryWeAreOn++){
         const selectLocation = document.getElementById("filter-location");
         const optionLocation = document.createElement("option");
-        optionLocation.innerHTML = `${data[countryWeAreOn].city} , ${data[countryWeAreOn].country}`.toUpperCase();
+        
+        //if there is no city, show country only, FORMAT: "city, country"
+        if (data[countryWeAreOn].city == null){
+          optionLocation.innerHTML = `${data[countryWeAreOn].country}`.toUpperCase();
+        }
+        else {
+          optionLocation.innerHTML = `${data[countryWeAreOn].city}, ${data[countryWeAreOn].country}`.toUpperCase();
+        }
+
         selectLocation.appendChild(optionLocation);
+        }
       }
+      
+      
     }
 
     const filterButton = document.getElementById("filter-button");
@@ -159,7 +184,7 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   const eventCardTemplate = document.getElementById("event-template");
   //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
   const eventCard = eventCardTemplate.content.cloneNode(true);
-  
+
   const lastCardInCollection = document.querySelector("#events-container").lastElementChild;
 
   //if there is no children in collection we will get null and in that case id should be 0, otherwise it is id of last child++
