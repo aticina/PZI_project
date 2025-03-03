@@ -159,23 +159,36 @@ function newCard(title,imageURL,description,select,startDate,endDate){
   const eventCardTemplate = document.getElementById("event-template");
   //accessing template's content(it has elements inside itself) and copying it to create an element we want(we want card with img and some text, we defined it in template)
   const eventCard = eventCardTemplate.content.cloneNode(true);
-  //setting card id
-  //first find last card in collection, its id is what we are after
+  
   const lastCardInCollection = document.querySelector("#events-container").lastElementChild;
+
   //if there is no children in collection we will get null and in that case id should be 0, otherwise it is id of last child++
+  /*some retired code
   let newID = 0;
-  if(lastCardInCollection !== null && localStorage.getItem(newID) === null){
+  if (localStorage.getItem("0") === null){
+    newID = 0;
+  }
+  else if(lastCardInCollection !== null && localStorage.getItem(newID) === null){
     newID = parseInt(lastCardInCollection.getAttribute("id")) + 1;
   }
   else{
     while(localStorage.getItem(newID) !== null){
       newID = newID +1;
     }
+  }*/
+  
+  let newID = 0; //if there are no kids ID is 0
+  if (lastCardInCollection === null){
+    newID = 0;
   }
-  //now that we know id of last card in collection we can make id for new card that will be appened on the end of collection
+  else{//if there are kids, check for each id if its free, if not, increase id++ and check again and so on till you find free id to use on new card
+    while(localStorage.getItem(newID) !== null){
+      newID = newID + 1;
+    }
+  }
+  
+  //setting id for card
   eventCard.querySelector(".event").setAttribute("id", newID );
-
-
   //accessing and changing image inside of newly created card
   const eventCardImage = eventCard.querySelector("img");
   eventCardImage.setAttribute("src",imageURL);
