@@ -151,7 +151,7 @@ form input,#description,#location {
     position: relative;
 }
 
-.datepicker {
+.start-datepicker, .end-datepicker {
     position: absolute;
     top: 100%;
     z-index: 100;
@@ -160,61 +160,54 @@ form input,#description,#location {
     padding: 1rem;
 }
 
-.datepicker-header {
+.start-datepicker-header, .end-datepicker-header {
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding-bottom: 1rem;
 }
 
-.datepicker-header select, .datepicker-header input {
+.start-datepicker-header select, .start-datepicker-header input, .end-datepicker-header select, .end-datepicker-header input {
     font-size: 1.4rem;
     border: 1px solid white;
-}
-
-.datepicker-header input {
     max-width: 15rem;
     border: solid black;
 }
 
-.datepicker-header select {
-    border: solid black;
-}
-
-.datepicker-header button {
+.start-datepicker-header button, .end-datepicker-header button {
     color: black;
     padding: 0.5rem 1rem;
 }
 
-.datepicker-header button:hover {
+.start-datepicker-header button:hover, .end-datepicker-header button:hover {
     background-color: rgb(167, 165, 165);
 }
 
-.datepicker-footer {
+.start-datepicker-footer, .end-datepicker-footer {
     display: flex;
     justify-content: flex-end;
     gap: 2rem;
 }
 
-.datepicker-footer button {
+.start-datepicker-footer button, .end-datepicker-footer button {
     background: white;
     padding: 0.5rem 1rem;
 }
 
-.datepicker button {
+.start-datepicker button, .end-datepicker button {
     border: solid black;
     font-size: 1.4rem;
     font-weight: 500;
 }
 
-.days,.dates {
+.start-days, .start-dates, .end-days, .end-dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
     margin-block: 1rem;
 }
 
-.days span {
+.start-days span, .end-days span {
     font-size: 2.4rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -222,25 +215,25 @@ form input,#description,#location {
     color: white;
 }
 
-.dates button {
+.start-dates button, .end-dates button {
     color: black;
     aspect-ratio: 1;
 }
 /*.today needs to be styled before hover, otherwise hover does not work on it*/
-.dates button.today {
+.start-dates button.start-today, .end-dates button.end-today {
     background-color: black;
     color: white;
     border: solid white;
 }
 /*selected has to be styled after today so we can see when we select today*/
-.dates button.selected {
+.start-dates button.start-selected, .end-dates button.end-selected {
     background-color: green;
     color: white;
     border: solid white;
 }
 
 
-.dates button:hover {
+.start-dates button:hover, .end-dates button:hover {
     background-color: rgb(161, 161, 161);
 }
 

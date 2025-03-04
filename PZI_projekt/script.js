@@ -374,4 +374,239 @@ applyButton.addEventListener("click", () => {
     displayDates();
   })
 */
+/*
+//START DATE
+const datepicker = document.querySelector(".start-datepicker");
+const dateInput = document.querySelector(".start-date-input");
+dateInput.addEventListener("click", () => { datepicker.hidden = false; });
+
+const cancelButton = document.querySelector(".start-cancel");
+cancelButton.addEventListener("click", () => { datepicker.hidden = true });
+
+const applyButton = document.querySelector(".start-apply");
+applyButton.addEventListener("click", () => { 
+  //show date in input window
+  dateInput.value = selectedDate.toLocaleDateString({ year:"numeric", month:"2-digit",day:"2-digit" });
+  datepicker.hidden = true })
+
+  const dates = document.querySelector(".start-dates");
+  let selectedDate = new Date();
+  let year = selectedDate.getFullYear();
+  let month = selectedDate.getMonth();
+
+  function handleDateClick(e){
+    const button = e.target;
+    //remove selected state from previously selected
+    const selected = dates.querySelector(".start-selected");
+    selected && selected.classList.remove("start-selected");
+    //add selected class to selected date/buton
+    button.classList.add("start-selected");
+    selectedDate = new Date(year,month,parseInt(button.textContent));
+  }
+
   
+  //month selector and year toggle when using prev and next buttons
+  const yearInput = document.querySelector(".start-year-input");
+  const monthInput = document.querySelector(".start-month-input");
+
+  function updateYearAndMonth(){
+    monthInput.selectedIndex = month;
+    yearInput.value = year;
+  }
+
+  //makes all dates that need to be visible, visible and in right order
+  function displayDates(){
+    updateYearAndMonth(); 
+    //clear content
+    dates.innerHTML="";
+    //for last week of prev month
+    const lastDateOfPrevMonth = new Date(year,month,0);
+    for(let i = 0; i <= lastDateOfPrevMonth.getDay(); i++){
+      const text = lastDateOfPrevMonth.getDate() - lastDateOfPrevMonth.getDay() + i;
+      const button = createButton(text,true,false);
+      dates.appendChild(button);
+    }
+
+    //for current month(whole), it "knows" when to use 30 or 31
+    const lastDateOfMonth = new Date(year,month+1,0);
+    for(let i = 1; i <= lastDateOfMonth.getDate(); i++){
+
+      //marking today's date visually
+      const isToday = selectedDate.getDate() === i && selectedDate.getFullYear() === year && selectedDate.getMonth() === month;
+
+      const button = createButton(i,false,isToday);
+      
+      button.addEventListener("click",handleDateClick);
+
+      dates.appendChild(button);
+    }
+
+    //for fisrt week of next month
+    const firstDateOfNextMonth = new Date(year,month+1,1);
+    for(let i = firstDateOfNextMonth.getDay(); i < 7; i++){
+      const text = firstDateOfNextMonth.getDate() - firstDateOfNextMonth.getDay() + i;
+      const button = createButton(text,true,false);
+      dates.appendChild(button);
+    }
+  }
+
+  function createButton(text,isDisabled = false ,isToday = false ){
+    const button = document.createElement("button");
+    button.textContent = text;
+    button.disabled = isDisabled;
+    button.classList.toggle("start-today",isToday);
+    return button;
+  }
+
+  displayDates();
+
+  //previous and next functionality
+  const prevButton = datepicker.querySelector(".start-prev");
+  const nextButton = datepicker.querySelector(".start-next");
+
+  nextButton.addEventListener("click", () => {
+    if(month === 11){
+      year++;
+    }
+    month = (month + 1) % 12;
+    displayDates();
+  })
+
+  prevButton.addEventListener("click", () => {
+    if(month === 0){
+      year--;
+    }
+    month = (month - 1 + 12) % 12;
+    displayDates();
+  })
+
+  //changing month changes looks of entire calendar
+  monthInput.addEventListener("change", () => {
+    month = monthInput.selectedIndex;
+    displayDates();
+  })
+
+  //changing year changes entier calendar displayed, like it should to make sense
+  yearInput.addEventListener("change", () => {
+    year = yearInput.value;
+    displayDates();
+  })*/
+  
+//END DATE
+const endDatepicker = document.querySelector(".end-datepicker");
+const endDateInput = document.querySelector(".end-date-input");
+endDateInput.addEventListener("click", () => { endDatepicker.hidden = false; });
+
+const endCancelButton = document.querySelector(".end-cancel");
+endCancelButton.addEventListener("click", () => { endDatepicker.hidden = true });
+
+const endApplyButton = document.querySelector(".end-apply");
+endApplyButton.addEventListener("click", () => { 
+  //show date in input window
+  endDateInput.value = endSelectedDate.toLocaleDateString({ year:"numeric", month:"2-digit",day:"2-digit" });
+  endDatepicker.hidden = true })
+
+  const endDates = document.querySelector(".end-dates");
+  let endSelectedDate = new Date();
+  let endYear = endSelectedDate.getFullYear();
+
+  //KEEP WORKING FROM HERE
+  let month = endSelectedDate.getMonth();
+
+  function handleDateClick(e){
+    const button = e.target;
+    //remove selected state from previously selected
+    const selected = endDates.querySelector(".end-selected");
+    selected && selected.classList.remove("end-selected");
+    //add selected class to selected date/buton
+    button.classList.add("end-selected");
+    endSelectedDate = new Date(endYear,month,parseInt(button.textContent));
+  }
+
+  
+  //month selector and year toggle when using prev and next buttons
+  const yearInput = document.querySelector(".end-year-input");
+  const monthInput = document.querySelector(".end-month-input");
+
+  function updateYearAndMonth(){
+    monthInput.selectedIndex = month;
+    yearInput.value = endYear;
+  }
+
+  //makes all dates that need to be visible, visible and in right order
+  function displayDates(){
+    updateYearAndMonth(); 
+    //clear content
+    endDates.innerHTML="";
+    //for last week of prev month
+    const lastDateOfPrevMonth = new Date(endYear,month,0);
+    for(let i = 0; i <= lastDateOfPrevMonth.getDay(); i++){
+      const text = lastDateOfPrevMonth.getDate() - lastDateOfPrevMonth.getDay() + i;
+      const button = createButton(text,true,false);
+      endDates.appendChild(button);
+    }
+
+    //for current month(whole), it "knows" when to use 30 or 31
+    const lastDateOfMonth = new Date(endYear,month+1,0);
+    for(let i = 1; i <= lastDateOfMonth.getDate(); i++){
+
+      //marking today's date visually
+      const isToday = endSelectedDate.getDate() === i && endSelectedDate.getFullYear() === year && endSelectedDate.getMonth() === month;
+
+      const button = createButton(i,false,isToday);
+      
+      button.addEventListener("click",handleDateClick);
+
+      endDates.appendChild(button);
+    }
+
+    //for fisrt week of next month
+    const firstDateOfNextMonth = new Date(endYear,month+1,1);
+    for(let i = firstDateOfNextMonth.getDay(); i < 7; i++){
+      const text = firstDateOfNextMonth.getDate() - firstDateOfNextMonth.getDay() + i;
+      const button = createButton(text,true,false);
+      endDates.appendChild(button);
+    }
+  }
+
+  function createButton(text,isDisabled = false ,isToday = false ){
+    const button = document.createElement("button");
+    button.textContent = text;
+    button.disabled = isDisabled;
+    button.classList.toggle("end-today",isToday);
+    return button;
+  }
+
+  displayDates();
+
+  //previous and next functionality
+  const prevButton = endDatepicker.querySelector(".end-prev");
+  const nextButton = endDatepicker.querySelector(".end-next");
+
+  nextButton.addEventListener("click", () => {
+    if(month === 11){
+      endYear++;
+    }
+    month = (month + 1) % 12;
+    displayDates();
+  })
+
+  prevButton.addEventListener("click", () => {
+    if(month === 0){
+      endYear--;
+    }
+    month = (month - 1 + 12) % 12;
+    displayDates();
+  })
+
+  //changing month changes looks of entire calendar
+  monthInput.addEventListener("change", () => {
+    month = monthInput.selectedIndex;
+    displayDates();
+  })
+
+  //changing year changes entier calendar displayed, like it should to make sense
+  yearInput.addEventListener("change", () => {
+    endYear = yearInput.value;
+    displayDates();
+  })
