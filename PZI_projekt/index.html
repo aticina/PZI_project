@@ -133,7 +133,7 @@
             <button id="add-event-button" onclick="showFormForNewEvent()">Add new event</button>
             <div id="add-event-form-wrapper" class="invisible">
                 <form>
-                    
+                    <input id="submit" value="SUBMIT" type="submit" onclick="hideFormForNewEvent()"/>
                     <label for="title">Input name of the event:</label>
                     <input id="title" type="text"/>
                     <label for="image">Select picture:</label>
@@ -144,14 +144,15 @@
                     <select id="location">
                         
                     </select>
-                    <div id="container-for-datepickers">
+                    <div id="container-for-datepickers"> <!--this element has NO js purpose-->
                         
                     
-                        <div class = "start-datepicker-container">
-                            <label for="start-date">Pick start date:</label>
-                            <input id="start-date" type="text" class="start-date-input" placeholder="Select start date" />
+                        <div class = "start-datepicker-container"> <!--This div has NO JS purpose-->
+                            <label for="start-date">Pick start date:</label> <!--this label has NO JS purpose, it has html purpose-->
+                            <input id="start-date" type="text" class="start-date-input" placeholder="Select start date" /><!--JS!!! square we write in element-->
 
-                            <div class="start-datepicker" hidden>
+                            <!--Label and input field are only by efault visible parts-->
+                            <div class="start-datepicker"> <!--div containts bulk of datepicker, by default hidden-->
 
                                 <div class="start-datepicker-header">
                                     <button class="start-prev">Prev</button>
@@ -248,7 +249,7 @@
                         </div>
                     </div>
                     <hr />
-                    <input id="submit" value="SUBMIT" type="submit" onclick="hideFormForNewEvent()"/>
+                    
                 </form>
             </div>
 
