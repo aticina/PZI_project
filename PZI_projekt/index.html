@@ -144,15 +144,95 @@
                     <select id="location">
                         
                     </select>
-                    <div id="container-for-datepickers"> <!--this element has NO js purpose-->
+
+                    <div class="section">
+                        <div id="divEdit">
+                            <div class="InputDiv" id="Months">
+                                <div class="divDate">
+                                    <div id="StartYearSelectDiv">
+                                        <label for="start-date-input">From:</label>
+                                        <input id="start-date-input" type="text" />
+                                        <select id="StartMonthSelect" class="MonthSelect" name="Month">
+                                            <option value="0">January</option>
+                                            <option value="1">February</option>
+                                            <option value="2">March</option>
+                                            <option value="3">April</option>
+                                            <option value="4">May</option>
+                                            <option value="5">June</option>
+                                            <option value="6">July</option>
+                                            <option value="7">August</option>
+                                            <option value="8">September</option>
+                                            <option value="9">October</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                        <select id="StartYearSelect" class="YearSelect" name="Year">
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                    <table class="DatePicker" id="EventStartDate">
+                                        <thead>
+                                            <tr>
+                                                <th>Mon</th>
+                                                <th>Tue</th>
+                                                <th>Wed</th>
+                                                <th>Thu</th>
+                                                <th>Fri</th>
+                                                <th>Sat</th>
+                                                <th>Sun</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="EventStartDateBody"> </tbody>
+                                    </table>
+                                </div>
+                                <div class="divDate">
+                                    <div id="EndYearSelectDiv">
+                                        <label for="end-date-input">To:</label>
+                                        <input id="end-date-input" type="text" />
+                                        <select id="EndMonthSelect" class="MonthSelect" name="Month">
+                                            <option selected value="0">January</option>
+                                            <option value="1">February</option>
+                                            <option value="2">March</option>
+                                            <option value="3">April</option>
+                                            <option value="4">May</option>
+                                            <option value="5">June</option>
+                                            <option value="6">July</option>
+                                            <option value="7">August</option>
+                                            <option value="8">September</option>
+                                            <option value="9">October</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                        <select id="EndYearSelect" class="YearSelect" name="Year"></select>
+                                    </div>
+                                    <table class="DatePicker" id="EventEndDate">
+                                        <thead>
+                                            <tr>
+                                                <th>Mon</th>
+                                                <th>Tue</th>
+                                                <th>Wed</th>
+                                                <th>Thu</th>
+                                                <th>Fri</th>
+                                                <th>Sat</th>
+                                                <th>Sun</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="EventEndDateBody"> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div id="container-for-datepickers"> 
                         
                     
-                        <div class = "start-datepicker-container"> <!--This div has NO JS purpose-->
-                            <label for="start-date">Pick start date:</label> <!--this label has NO JS purpose, it has html purpose-->
-                            <input id="start-date" type="text" class="start-date-input" placeholder="Select start date" /><!--JS!!! square we write in element-->
+                        <div class = "start-datepicker-container">
+                            <label for="start-date">Pick start date:</label>
+                            <input id="start-date" type="text" class="start-date-input" placeholder="Select start date" />
 
-                            <!--Label and input field are only by efault visible parts-->
-                            <div class="start-datepicker"> <!--div containts bulk of datepicker, by default hidden-->
+                            
+                            <div class="start-datepicker"> 
 
                                 <div class="start-datepicker-header">
                                     <button class="start-prev">Prev</button>
@@ -248,6 +328,7 @@
                                 </div>
                         </div>
                     </div>
+                -->
                     <hr />
                     
                 </form>

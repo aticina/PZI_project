@@ -171,8 +171,8 @@ function getFormInfo(){
   const imageURL = document.getElementById("image").value;
   const description = document.getElementById("description").value;
   const select = document.querySelector("#location").value;
-  const startDate = document.getElementById("start-date").value;
-  const endDate = document.getElementById("end-date").value;
+  const startDate = document.getElementById("start-date-input").value;
+  const endDate = document.getElementById("end-date-input").value;
   newCard(title,imageURL,description,select,startDate,endDate);
   //alert(title + imageURL + description + select + startDate + endDate);
 
@@ -250,13 +250,176 @@ eventContainer.addEventListener("click", function(e) {
   
 }, false);
 
+
+//DATEPICKER source/help: colleague
+const ThisYear = new Date().getFullYear();
+const ThisMonth = new Date().getMonth();
+const ThisDay = new Date().getDate();
+let SelectedStartYear = ThisYear; 
+let SelectedStartMonth = ThisMonth;
+let SelectedEndYear = ThisYear; 
+let SelectedEndMonth = ThisMonth;
+let SelectedStartDate = null;
+let SelectedEndDate = null;
+const YearSelect = document.getElementsByClassName("YearSelect");
+const StartYear = document.getElementById("StartYearSelect");
+const StartMonth = document.getElementById("StartMonthSelect");
+const EndYear = document.getElementById("EndYearSelect");
+const EndMonth = document.getElementById("EndMonthSelect");
+
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+//events
+StartYear.addEventListener("change", (e) => {
+    SelectedStartYear = e.target.value;
+    CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
+  });
+
+StartMonth.addEventListener("change", (e) => {
+    SelectedStartMonth = e.target.value;
+    CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
+  });
+
+EndYear.addEventListener("change", (e) => {
+    SelectedEndYear = e.target.value;
+    CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
+  });
+
+EndMonth.addEventListener("change", (e) => {
+    SelectedEndMonth = e.target.value;
+    CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
+  });
+
+//dates
+function GenerateYears() {
+    let i = 0;
+    let Years = "";
+    while (i < 10){
+        Years += "<option value='" + String(ThisYear + i) + "'>" + String(ThisYear + i) + "</option>\n";
+
+        i++;
+    }
+
+    document.getElementById("StartYearSelect").innerHTML = Years;
+    document.getElementById("EndYearSelect").innerHTML = Years;
+}
+
+function CreateMonthDateTable(Year, Month, Id, Start) {
+    let MonthDateTable = "\n<tr>\n";
+    let SelectedDate = new Date(Year, Month);
+
+    WeekDayNumber = 1;
+    while(SelectedDate.getMonth() == Month) {
+
+
+        while(SelectedDate.getDay() != WeekDayNumber) {
+            MonthDateTable += "<td>-</td>\n";
+
+            WeekDayNumber += 1;
+
+            if (WeekDayNumber > 6) {
+                WeekDayNumber = 0;
+            }
+
+        }
+        if(Start) {
+            if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
+                MonthDateTable += "<td class='startdays today' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+            }
+            else {
+                MonthDateTable += "<td class='startdays' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+            }
+        }
+        else {
+            if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
+                MonthDateTable += "<td class='enddays today' id='e" + SelectedDate.getDate() + "' onclick='SetEndDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+            }
+            else {
+                MonthDateTable += "<td class='enddays' id='e" + SelectedDate.getDate() + "' onclick='SetEndDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+            }
+        }
+        SelectedDate = SelectedDate.addDays(1);
+        WeekDayNumber += 1;
+        if (WeekDayNumber > 6) {
+            WeekDayNumber = 0;
+        }
+
+        if (WeekDayNumber == 1) {
+            MonthDateTable += "</tr>\n<tr>";
+        }
+    }
+
+    MonthDateTable += "</tr>";
+
+    document.getElementById(Id).innerHTML = MonthDateTable;
+}
+
+function SetStartDate(SelectedDate) {
+    
+    if(SelectedDate != "-") {
+        if(SelectedEndDate != null && SelectedEndDate < new Date(SelectedStartYear, SelectedStartMonth, SelectedDate)) {
+            alert("Greška. Datum završetka je prije datuma početka.");
+        }
+        else {
+            SelectedStartDate = new Date(SelectedStartYear, SelectedStartMonth, SelectedDate);
+            Array.from(document.getElementsByClassName("startdays")).forEach(function(day) {
+                day.classList.remove('selected');
+            });
+            document.getElementById("s" + SelectedDate).classList.add('selected');
+            
+        }
+        
+    }
+    document.getElementById("start-date-input").value = SelectedStartDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
+}
+
+function SetEndDate(SelectedDate) {
+    if(SelectedDate != "-") {
+        if(SelectedStartDate != null && new Date(SelectedEndYear, SelectedEndMonth, SelectedDate) < SelectedStartDate) {
+            alert("Greška. Datum završetka je prije datuma početka.");
+        }
+        else {
+            SelectedEndDate = new Date(SelectedEndYear, SelectedEndMonth, SelectedDate);
+            Array.from(document.getElementsByClassName("enddays")).forEach(function(day) {
+                day.classList.remove('selected');
+            });
+            document.getElementById("e" + SelectedDate).classList.add('selected'); 
+            
+        }
+
+    }
+    document.getElementById("end-date-input").value = SelectedEndDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
+    console.log(SelectedEndDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"}));
+}
+
+
+//init
+function SetInitialValues() {
+    document.getElementById("StartMonthSelect").value = ThisMonth;
+    document.getElementById("StartYearSelect").value = ThisYear;
+    document.getElementById("EndMonthSelect").value = ThisMonth;
+    document.getElementById("EndYearSelect").value = ThisYear;
+    SelectedStartDate = null;
+    SelectedEndDate = null;
+    Array.from(document.getElementsByClassName("startdays")).forEach(function(day) {
+        day.classList.remove('selected');
+    });
+    Array.from(document.getElementsByClassName("enddays")).forEach(function(day) {
+        day.classList.remove('selected');
+    });
+}
+
+//main
+GenerateYears();
+CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
+CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventEndDateBody", false);
+SetInitialValues();
+
 /*
-CAPSLOCK ISN'T USED FOR YELLING/INAPPROPRIATE TONE IN THIS CONTEXT/CODE.
-CAPSLOCK IS USED FOR VISIBILITY AMONGST OTHER COMMENTS.
-I TRIED TO MAKE FUNCTIONAL DATE PICKER, BUT IT DOES NOT FUNCTION FULLY AS EXPECTED, SO I COMMENTED ALL OF IT SO ITS BEHAVIOUR DOES NOT DISTURB OTHER FUNCTIONALITIES OF WEB PAGE
-IN CASE YOU WANT TO SEE WHAT IT'S DOING, JUST UNCOMMENT IT AND TRY TO USE IT ON WEB PAGE.
-SOME CLICKS ON IT CAUSE RELOADING OF WHOLE PAGE WHICH DISTURBS PROCESS OF MAKING NEW CARD. AND USING QUERYSELECTOR MAKES IT SO IT WORKS FOR STARTDATE ONLY, TO MAKE ONE FOR ENDDATE
-USING SAME CODE THERE WOULD BE A COPY PASTE OF HTML AND JS WITH SLIGHLTY ALTERED CLASS AND FUNCTION NAMES. CAUSE QUERYSELECTOR RETURNS FIRST ELEMENT THAT FITS REQUIREMENT.
 //DATE START-followed tutorial https://www.youtube.com/watch?v=lDv8YsTgSAs
 const datepicker = document.querySelector(".datepicker");
 const dateInput = document.querySelector(".date-input");
@@ -374,7 +537,7 @@ applyButton.addEventListener("click", () => {
     displayDates();
   })
 */
-
+/*
 //START DATE
 const startDatepicker = document.querySelector(".start-datepicker"); //div that contains bulk of datepicker, initially hidden, so everything except label and input field are in this
 const startDateInputElement = document.querySelector(".start-date-input");//gets input element aka square we write in
@@ -382,9 +545,9 @@ startDateInputElement.addEventListener("click", () => { startDatepicker.hidden =
 //element.hidden = false/true, this sets value of hidden attribute, if it's true then element is hidden, if its false then its unhidden
 //MAYBE make it so when start is unhidden, end goes into hidding and other way around too?
 
-/*
+
 const startCancelButton = document.querySelector(".start-cancel");
-startCancelButton.addEventListener("click", () => { startDatepicker.hidden = true }); //closes startDatepicker aka hides it */
+startCancelButton.addEventListener("click", () => { startDatepicker.hidden = true }); //closes startDatepicker aka hides it 
 
 
 let startSelectedDate = new Date(); //this is current date aka today by definition of new Date(), but it will likely change to be whatever users sets it as cause
@@ -525,9 +688,7 @@ startPrevButton.addEventListener("click", () => {
   startDisplayDates();
 });
 
-
   
-/*
 //END DATE
 const endDatepicker = document.querySelector(".end-datepicker");
 const endDateInput = document.querySelector(".end-date-input");

@@ -277,3 +277,68 @@ form input,#description,#location {
     }
 
 }
+
+.section {
+    border: solid 2px darkgray;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 0.5em;
+    
+}
+
+#divEdit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+#divEdit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+#Months {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.InputDiv {
+    margin:0.5em;
+}
+
+.divDate {
+    margin: 0 0.5em;
+}
+
+.DatePicker {
+    background-color: lightgray;  
+    justify-content: space-around;
+    margin-top:0.3em;
+    background-image: url("images/background.jpg");
+}
+
+.DatePicker td {
+    text-align: center;
+    cursor: pointer;
+}
+
+.DatePicker th {
+    width: 3rem;
+}
+
+td:hover {
+    background-color: lightblue;
+}
+
+td.today {
+    border: solid 2px darkgray;
+    border-radius: 0.5em;
+}
+td.selected {
+    background-color: #eb6134;
+    border-radius: 0.5em;
+}
