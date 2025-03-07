@@ -55,14 +55,14 @@ img {
     flex-wrap: wrap;
     align-content: stretch;
     justify-content: center;
-	gap: 20px 15px;
+	gap: 2rem 1.5rem;
 }
 .event {
     background-color: aliceblue;
-    border: solid 10px black;
+    border: solid 1rem black;
     flex-basis: 30%;
     /*padding ensures that img and text are not glued to borders of events*/
-    padding: 15px;
+    padding: 1.5rem;
 }
 
 .event-info {
@@ -105,15 +105,15 @@ img {
 .event-description {
     /*ch helps limit maximum of characters per line of text, 80 is advised upper limit for responsive web design*/
     max-width: 80ch;
-    font-size: 2em;
+    font-size: 2rem;
 }
 
 #add-event-button {
     border: none;
 	color: black;
 	background-color: rgb(204, 204, 204);
-	padding: 50px 15px;
-	border-radius: 5px;
+	padding: 5rem 1.5rem;
+	border-radius: 0.5rem;
     width: 100%;
     height: 10%;
     font-size: 15ch;
@@ -146,6 +146,112 @@ form input,#description,#location {
     font-size: 2.5rem;
 }
 
+#datepickers-container {
+    color: white;
+    border: solid 0.2rem darkgray;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 0.5em;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: flex-start;
+}
+
+#start-datepicker-header, #end-datepicker-header {
+    color: black;
+}
+
+#start-datepicker, #end-datepicker {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#start-datepicker-body, #end-datepicker-body {
+    display: block;
+    background-color: lightgray;  
+    justify-content: space-around;
+    margin-top:0.3rem;
+    background-image: url("images/background.jpg");
+    border: solid 0.7rem black;
+}
+
+table {
+    width: 100%;
+    position: relative;
+    margin: auto;
+}
+
+thead tr {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+tbody td{
+    
+}
+
+td:hover {
+    background-color: lightgray;
+}
+
+td.today {
+    border: solid 0.2rem white;
+    border-radius: 0.5rem;
+    background: black;
+}
+
+#start-date-tbody td.selected {
+    background-color: green;
+    border: solid 0.2rem white;
+    border-radius: 0.5rem;
+}
+#end-date-tbody td.selected {
+    background-color: red;
+    border: solid 0.2rem white;
+    border-radius: 0.5em;
+}
+
+#submit {
+    margin: 2.5rem;
+    min-height: 5rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.invisible {
+    display: none;
+}
+
+@media screen and (max-width: 900px){
+
+    #events-container {
+        padding: 2.5% 2%;
+    }
+    .event {
+        border: solid 1rem black;
+        flex-basis: 50%;
+        padding: 1rem;
+    }
+}
+
+/*for mobile phones*/
+@media screen and (max-width: 600px){
+
+    #events-container {
+        padding: 5% 3%;
+    }
+    .event {
+        border: solid 1rem black;
+        flex-basis: 100%;
+        padding: 0.5rem;
+    }
+
+    .filter-input {
+        width: min-content;
+    }
+
+}
+
+/*dates,but initial idea, RETIRED for now
 .datepicker-container {
     display: block;
     position: relative;
@@ -219,13 +325,13 @@ form input,#description,#location {
     color: black;
     aspect-ratio: 1;
 }
-/*.today needs to be styled before hover, otherwise hover does not work on it*/
+/*.today needs to be styled before hover, otherwise hover does not work on it
 .start-dates button.start-today, .end-dates button.end-today {
     background-color: black;
     color: white;
     border: solid white;
 }
-/*selected has to be styled after today so we can see when we select today*/
+/*selected has to be styled after today so we can see when we select today
 .start-dates button.start-selected, .end-dates button.end-selected {
     background-color: green;
     color: white;
@@ -236,115 +342,4 @@ form input,#description,#location {
 .start-dates button:hover, .end-dates button:hover {
     background-color: rgb(161, 161, 161);
 }
-
-
-#submit {
-    margin: 2.5rem;
-    min-height: 5rem;
-    font-size: 3rem;
-    font-weight: bold;
-}
-.invisible {
-    display: none;
-}
-
-@media screen and (max-width: 900px){
-
-    #events-container {
-        padding: 2.5% 2%;
-    }
-    .event {
-        border: solid 1rem black;
-        flex-basis: 50%;
-        padding: 1rem;
-    }
-}
-
-/*for mobile phones*/
-@media screen and (max-width: 600px){
-
-    #events-container {
-        padding: 5% 3%;
-    }
-    .event {
-        border: solid 1rem black;
-        flex-basis: 100%;
-        padding: 0.5rem;
-    }
-
-    .filter-input {
-        width: min-content;
-    }
-
-}
-
-.section {
-    color: white;
-    border: solid 2px darkgray;
-    border-radius: 1em;
-    padding: 1em;
-    margin: 0.5em;
-    
-}
-
-#StartYearSelectDiv, #EndYearSelectDiv {
-    color: black;
-}
-
-#divEdit {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-}
-
-#Months {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-.InputDiv {
-    margin:0.5em;
-}
-
-.divDate {
-    margin: 0 0.5em;
-}
-
-.DatePicker {
-    background-color: lightgray;  
-    justify-content: space-around;
-    margin-top:0.3em;
-    background-image: url("images/background.jpg");
-}
-
-.DatePicker td {
-    text-align: center;
-    cursor: pointer;
-}
-
-.DatePicker th {
-    width: 3rem;
-}
-
-td:hover {
-    background-color: lightgray;
-}
-
-td.today {
-    border: solid 2px white;
-    border-radius: 0.5em;
-    background: black;
-}
-
-#EventStartDateBody td.selected {
-    background-color: green;
-    border: solid 2px white;
-    border-radius: 0.5em;
-}
-#EventEndDateBody td.selected {
-    background-color: red;
-    border: solid 2px white;
-    border-radius: 0.5em;
-}
+*/

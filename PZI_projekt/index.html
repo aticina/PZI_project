@@ -133,7 +133,7 @@
             <button id="add-event-button" onclick="showFormForNewEvent()">Add new event</button>
             <div id="add-event-form-wrapper" class="invisible">
                 <form>
-                    <input id="submit" value="SUBMIT" type="submit" onclick="hideFormForNewEvent()"/>
+                    
                     <label for="title">Input name of the event:</label>
                     <input id="title" type="text"/>
                     <label for="image">Select picture:</label>
@@ -144,7 +144,97 @@
                     <select id="location">
                         
                     </select>
+                    <div id="datepickers-container">
+                        <div id="start-datepicker">
+            
+                            <div id="start-datepicker-header">
+                                <label for="start-date-input">Start date:</label>
+                                <input id="start-date-input" type="text" placeholder="Select start date..."/>
+                                <select id="start-month-selector">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                                <select id="start-year-selector">
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                        
+                            <div id="start-datepicker-body">
 
+                                <table id="start-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mon</th>
+                                            <th>Tue</th>
+                                            <th>Wed</th>
+                                            <th>Thu</th>
+                                            <th>Fri</th>
+                                            <th>Sat</th>
+                                            <th>Sun</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="start-date-tbody"> </tbody>
+                                </table>
+            
+                            </div>
+            
+                        </div>
+                        <hr />
+                        <div id="end-datepicker">
+            
+                            <div id="end-datepicker-header">
+                                <label for="end-date-input">End date:</label>
+                                <input id="end-date-input" type="text" placeholder="Select end date..."/>
+                                <select id="end-month-selector">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                                <select id="end-year-selector">
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                            
+                            <div id="end-datepicker-body">
+                                <table id="end-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mon</th>
+                                            <th>Tue</th>
+                                            <th>Wed</th>
+                                            <th>Thu</th>
+                                            <th>Fri</th>
+                                            <th>Sat</th>
+                                            <th>Sun</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="end-date-tbody"> </tbody>
+                                </table>
+            
+                            </div>
+            
+                        </div>
+                    </div>
+                    <!--
                     <div class="section">
                         <div id="divEdit">
                             <div class="InputDiv" id="Months">
@@ -222,7 +312,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!--
                     <div id="container-for-datepickers"> 
                         
@@ -330,7 +420,7 @@
                     </div>
                 -->
                     <hr />
-                    
+                    <input id="submit" value="SUBMIT" type="submit" onclick="hideFormForNewEvent()"/>
                 </form>
             </div>
 

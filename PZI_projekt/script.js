@@ -253,35 +253,34 @@ eventContainer.addEventListener("click", function(e) {
 
 //DATEPICKER source/help: colleague
 //ThisYear varies based on current Date, but it is always current, example today it is 2025
-const ThisYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
 //-II- bbut for month, index 2 aka March
-const ThisMonth = new Date().getMonth();
+const currentMonth = new Date().getMonth();
 //-II- for date, 7
-const ThisDay = new Date().getDate();
+const currentDay = new Date().getDate();
 
 //setting default state of calendar in terms of selected date, initially we only set year and month
-let SelectedStartYear = ThisYear; 
-let SelectedStartMonth = ThisMonth;
-let SelectedEndYear = ThisYear; 
-let SelectedEndMonth = ThisMonth;
-let SelectedStartDate = null;
-let SelectedEndDate = null;
+let startYear = currentYear; 
+let startMonth = currentMonth;
+let endYear = currentYear; 
+let endMonth = currentMonth;
+let startDate = null;
+let endDate = null;
 
 //here we are getting access to some html elements we need
 //for that SMALL FIELD WITH YEAR, BOTH FOR START AND END DATE above calendar page, shows current year, can be changed
-const YearSelect = document.getElementsByClassName("YearSelect");
+//const YearSelect = document.getElementsByClassName("year-selector");
 //SMALL FIELD WITH YEAR, ONLY START DATE
-const StartYear = document.getElementById("StartYearSelect");
+const startYearSelector = document.getElementById("start-year-selector");
 //SMALL FIELD WITH MONTH, ONLY START DATE
-const StartMonth = document.getElementById("StartMonthSelect");
+const startMonthSelector = document.getElementById("start-month-selector");
 //SMALL FIELD WITH YEAR, ONLY END DATE
-const EndYear = document.getElementById("EndYearSelect");
+const endYearSelector = document.getElementById("end-year-selector");
 //SMALL FIELD WITH MONTH, ONLY END DATE
-const EndMonth = document.getElementById("EndMonthSelect");
+const endMonthSelector = document.getElementById("end-month-selector");
 
 
 //.prototype gives new method to date object, method name addDays, it is defined here too
-//GOAL?
 Date.prototype.addDays = function(days) {
     let date = new Date(this.valueOf());
     //.setDate sets date(as name says), .getDate gets date of month from date variable and then we increase it by number in days argument
@@ -291,143 +290,144 @@ Date.prototype.addDays = function(days) {
 
 //this code here dictates how calendar changes according to user changing month or year or both from current to past or future time, it changes one variable and propagates change through CreateMonthDateTable
 //when user changes SMALL FIELD WITH YEAR it triggers the function that redoes the calendar to change according to new year
-StartYear.addEventListener("change", () => {
-    SelectedStartYear = StartYear.value; //SelectedStartYear is current year 2025, but user can change it via this event
-    CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
+startYearSelector.addEventListener("change", () => {
+    startYear = startYearSelector.value; //SelectedStartYear is current year 2025, but user can change it via this event
+    createCalendarPage(startYear, startMonth, "start-date-tbody", true);
   });
 
-StartMonth.addEventListener("change", () => {
-    SelectedStartMonth = StartMonth.value;
-    CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
+startMonthSelector.addEventListener("change", () => {
+    startMonth = startMonthSelector.value;
+    createCalendarPage(startYear, startMonth, "start-date-tbody", true);
   });
 
-//.target returns element on which event happened, which is not really needed since we already accessed those elements with .getElementById
-EndYear.addEventListener("change", (e) => {
-    SelectedEndYear = e.target.value;
-    CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
+endYearSelector.addEventListener("change", () => {
+    endYear = endYearSelector.value;
+    createCalendarPage(endYear, endMonth, "end-date-tbody", false);
   });
 
-EndMonth.addEventListener("change", (e) => {
-    SelectedEndMonth = e.target.value;
-    CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
+endMonthSelector.addEventListener("change", () => {
+    endMonth = endMonthSelector.value;
+    createCalendarPage(endYear, endMonth, "end-date-tbody", false);
   });
 
 //generates years for SMALL FIELD WITH YEAR
-function GenerateYears() {
+function generateYears() {
     let i = 0;
-    let Years = "";
+    let years = "";
     while (i < 10){
       //this generates current + 9 future years
-        Years += "<option value='" + String(ThisYear + i) + "'>" + String(ThisYear + i) + "</option>\n";
+        years += "<option value='" + String(currentYear + i) + "'>" + String(currentYear + i) + "</option>\n";
 
         i++;
     }
-    StartYear.innerHTML = Years;
-    EndYear.innerHTML = Years;
+    startYearSelector.innerHTML = years;
+    endYearSelector.innerHTML = years;
 }
 
 //"main" functionality, creates calendar page/view based on arguments passed to it
-function CreateMonthDateTable(Year, Month, Id, Start) {
-    let MonthDateTable = "\n<tr>\n";
+function createCalendarPage(year, month, startOrEnd, isStart) {
+    let page = "\n<tr>\n";
     //SelectedDate depends on arguments we give to the function
-    let SelectedDate = new Date(Year, Month);
+    let selectedDate = new Date(year, month);
 
-    let WeekDayNumber = 1; //Monday
-    while(SelectedDate.getMonth() == Month) { //while date is in choosen month we loop aka keep making date fields
+    let weekDayNumber = 1; //Monday
+    while(selectedDate.getMonth() == month) { //while date is in choosen month we loop aka keep making date fields
 
 
-        while(SelectedDate.getDay() != WeekDayNumber) {
+        while(selectedDate.getDay() != weekDayNumber) {
           //we are putting - for days from previous month, and changing day of a week mon-sun
-            MonthDateTable += "<td>-</td>\n";
+            page += "<td>-</td>\n";
 
-            WeekDayNumber += 1;
+            weekDayNumber += 1;
 
-            if (WeekDayNumber > 6) {
-                WeekDayNumber = 0;
+            if (weekDayNumber > 6) {
+                weekDayNumber = 0;
             }
 
         }
-        if(Start) {//if we are working with start-date
-            if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
-                MonthDateTable += "<td class='startdays today' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+        if(isStart) {//if we are working with start-date
+            if((selectedDate.getDate() == currentDay) && (selectedDate.getMonth() == currentMonth) && (selectedDate.getFullYear() == currentYear)) {
+                page += "<td class='startdays today' id='s" + selectedDate.getDate() + "' onclick='setStartDate(" + selectedDate.getDate() + ")'>" + selectedDate.getDate() + "</td>\n";
             }
             else {
-                MonthDateTable += "<td class='startdays' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+                page += "<td class='startdays' id='s" + selectedDate.getDate() + "' onclick='setStartDate(" + selectedDate.getDate() + ")'>" + selectedDate.getDate() + "</td>\n";
             }
         }
         else {//if we are working with end-date, today or not makes the differnece
-            if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
-                MonthDateTable += "<td class='enddays today' id='e" + SelectedDate.getDate() + "' onclick='SetEndDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+            if((selectedDate.getDate() == currentDay) && (selectedDate.getMonth() == currentMonth) && (selectedDate.getFullYear() == currentYear)) {
+                page += "<td class='enddays today' id='e" + selectedDate.getDate() + "' onclick='setEndDate(" + selectedDate.getDate() + ")'>" + selectedDate.getDate() + "</td>\n";
             }
             else {
-                MonthDateTable += "<td class='enddays' id='e" + SelectedDate.getDate() + "' onclick='SetEndDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
+                page += "<td class='enddays' id='e" + selectedDate.getDate() + "' onclick='setEndDate(" + selectedDate.getDate() + ")'>" + selectedDate.getDate() + "</td>\n";
             }
         }
-        SelectedDate = SelectedDate.addDays(1);
-        WeekDayNumber += 1;
-        if (WeekDayNumber > 6) {
-            WeekDayNumber = 0;
+        selectedDate = selectedDate.addDays(1);
+        weekDayNumber += 1;
+        if (weekDayNumber > 6) {
+            weekDayNumber = 0;
         }
 
-        if (WeekDayNumber == 1) {
-            MonthDateTable += "</tr>\n<tr>";
+        if (weekDayNumber == 1) {
+            page += "</tr>\n<tr>";
         }
     }
 
-    MonthDateTable += "</tr>";
+    page += "</tr>";
 
-    //Id differentiates between start and end date section
-    document.getElementById(Id).innerHTML = MonthDateTable;
+    //differentiates between start and end date section
+    document.getElementById(startOrEnd).innerHTML = page;
 }
 
-//FROM HERE
-function SetStartDate(SelectedDate) {
+function setStartDate(selectedDate) {
     
-    if(SelectedDate != "-") {
-        if(SelectedEndDate != null && SelectedEndDate < new Date(SelectedStartYear, SelectedStartMonth, SelectedDate)) {
-            alert("Greška. Datum završetka je prije datuma početka.");
+    if(selectedDate != "-") {
+      //non-dates cannot be selected
+        if(endDate != null && endDate < new Date(startYear, startMonth, selectedDate)) {
+            alert("Start date has to on same day as end date or before it! Please select another start date.");
         }
         else {
-            SelectedStartDate = new Date(SelectedStartYear, SelectedStartMonth, SelectedDate);
+            startDate = new Date(startYear, startMonth, selectedDate);
             Array.from(document.getElementsByClassName("startdays")).forEach(function(day) {
                 day.classList.remove('selected');
             });
-            document.getElementById("s" + SelectedDate).classList.add('selected');
+            document.getElementById("s" + selectedDate).classList.add('selected');
             
         }
         
     }
-    document.getElementById("start-date-input").value = SelectedStartDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
+    //setting selected date in form input to be picked by submit
+    document.getElementById("start-date-input").value = startDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
 }
 
-function SetEndDate(SelectedDate) {
-    if(SelectedDate != "-") {
-        if(SelectedStartDate != null && new Date(SelectedEndYear, SelectedEndMonth, SelectedDate) < SelectedStartDate) {
-            alert("Greška. Datum završetka je prije datuma početka.");
+function setEndDate(selectedDate) {
+  //non-dates cannot be selected
+    if(selectedDate != "-") {
+      //Ensuring end date is same or after start date
+        if(startDate != null && new Date(endYear, endMonth, selectedDate) < startDate) {
+            alert("End date cannot be before start date! Please select another end date.");
         }
         else {
-            SelectedEndDate = new Date(SelectedEndYear, SelectedEndMonth, SelectedDate);
+            endDate = new Date(endYear, endMonth, selectedDate);
             Array.from(document.getElementsByClassName("enddays")).forEach(function(day) {
                 day.classList.remove('selected');
             });
-            document.getElementById("e" + SelectedDate).classList.add('selected'); 
+            document.getElementById("e" + selectedDate).classList.add('selected'); 
             
         }
 
     }
-    document.getElementById("end-date-input").value = SelectedEndDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
-    console.log(SelectedEndDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"}));
+    //setting selcted date in form input
+    document.getElementById("end-date-input").value = endDate.toLocaleDateString({year:"number", month:"2-digit", date:"2-digit"});
 }
 
-
-//init
-function SetInitialValues() {
-    document.getElementById("StartMonthSelect").value = ThisMonth;
-    document.getElementById("StartYearSelect").value = ThisYear;
-    document.getElementById("EndMonthSelect").value = ThisMonth;
-    document.getElementById("EndYearSelect").value = ThisYear;
-    SelectedStartDate = null;
-    SelectedEndDate = null;
+//Setting up datepickers
+function initialize() {
+    startMonthSelector.value = currentMonth;
+    startYearSelector.value = currentYear;
+    endMonthSelector.value = currentMonth;
+    endYearSelector.value = currentYear;
+    startDate = null;
+    endDate = null;
     Array.from(document.getElementsByClassName("startdays")).forEach(function(day) {
         day.classList.remove('selected');
     });
@@ -436,11 +436,10 @@ function SetInitialValues() {
     });
 }
 
-//main
-GenerateYears();
-CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
-CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventEndDateBody", false);
-SetInitialValues();
+generateYears();
+createCalendarPage(startYear, startMonth, "start-date-tbody", true);
+createCalendarPage(endYear, endMonth, "end-date-tbody", false);
+initialize();
 
 /*
 //DATE START-followed tutorial https://www.youtube.com/watch?v=lDv8YsTgSAs
