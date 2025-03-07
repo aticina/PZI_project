@@ -279,6 +279,7 @@ form input,#description,#location {
 }
 
 .section {
+    color: white;
     border: solid 2px darkgray;
     border-radius: 1em;
     padding: 1em;
@@ -286,11 +287,8 @@ form input,#description,#location {
     
 }
 
-#divEdit {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
+#StartYearSelectDiv, #EndYearSelectDiv {
+    color: black;
 }
 
 #divEdit {
@@ -331,14 +329,22 @@ form input,#description,#location {
 }
 
 td:hover {
-    background-color: lightblue;
+    background-color: lightgray;
 }
 
 td.today {
-    border: solid 2px darkgray;
+    border: solid 2px white;
+    border-radius: 0.5em;
+    background: black;
+}
+
+#EventStartDateBody td.selected {
+    background-color: green;
+    border: solid 2px white;
     border-radius: 0.5em;
 }
-td.selected {
-    background-color: #eb6134;
+#EventEndDateBody td.selected {
+    background-color: red;
+    border: solid 2px white;
     border-radius: 0.5em;
 }

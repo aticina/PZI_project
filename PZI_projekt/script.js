@@ -252,38 +252,56 @@ eventContainer.addEventListener("click", function(e) {
 
 
 //DATEPICKER source/help: colleague
+//ThisYear varies based on current Date, but it is always current, example today it is 2025
 const ThisYear = new Date().getFullYear();
+//-II- bbut for month, index 2 aka March
 const ThisMonth = new Date().getMonth();
+//-II- for date, 7
 const ThisDay = new Date().getDate();
+
+//setting default state of calendar in terms of selected date, initially we only set year and month
 let SelectedStartYear = ThisYear; 
 let SelectedStartMonth = ThisMonth;
 let SelectedEndYear = ThisYear; 
 let SelectedEndMonth = ThisMonth;
 let SelectedStartDate = null;
 let SelectedEndDate = null;
+
+//here we are getting access to some html elements we need
+//for that SMALL FIELD WITH YEAR, BOTH FOR START AND END DATE above calendar page, shows current year, can be changed
 const YearSelect = document.getElementsByClassName("YearSelect");
+//SMALL FIELD WITH YEAR, ONLY START DATE
 const StartYear = document.getElementById("StartYearSelect");
+//SMALL FIELD WITH MONTH, ONLY START DATE
 const StartMonth = document.getElementById("StartMonthSelect");
+//SMALL FIELD WITH YEAR, ONLY END DATE
 const EndYear = document.getElementById("EndYearSelect");
+//SMALL FIELD WITH MONTH, ONLY END DATE
 const EndMonth = document.getElementById("EndMonthSelect");
 
+
+//.prototype gives new method to date object, method name addDays, it is defined here too
+//GOAL?
 Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
+    let date = new Date(this.valueOf());
+    //.setDate sets date(as name says), .getDate gets date of month from date variable and then we increase it by number in days argument
     date.setDate(date.getDate() + days);
     return date;
 }
 
-//events
-StartYear.addEventListener("change", (e) => {
-    SelectedStartYear = e.target.value;
+//this code here dictates how calendar changes according to user changing month or year or both from current to past or future time, it changes one variable and propagates change through CreateMonthDateTable
+//when user changes SMALL FIELD WITH YEAR it triggers the function that redoes the calendar to change according to new year
+StartYear.addEventListener("change", () => {
+    SelectedStartYear = StartYear.value; //SelectedStartYear is current year 2025, but user can change it via this event
     CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
   });
 
-StartMonth.addEventListener("change", (e) => {
-    SelectedStartMonth = e.target.value;
+StartMonth.addEventListener("change", () => {
+    SelectedStartMonth = StartMonth.value;
     CreateMonthDateTable(SelectedStartYear, SelectedStartMonth, "EventStartDateBody", true);
   });
 
+//.target returns element on which event happened, which is not really needed since we already accessed those elements with .getElementById
 EndYear.addEventListener("change", (e) => {
     SelectedEndYear = e.target.value;
     CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
@@ -294,29 +312,32 @@ EndMonth.addEventListener("change", (e) => {
     CreateMonthDateTable(SelectedEndYear, SelectedEndMonth, "EventEndDateBody", false);
   });
 
-//dates
+//generates years for SMALL FIELD WITH YEAR
 function GenerateYears() {
     let i = 0;
     let Years = "";
     while (i < 10){
+      //this generates current + 9 future years
         Years += "<option value='" + String(ThisYear + i) + "'>" + String(ThisYear + i) + "</option>\n";
 
         i++;
     }
-
-    document.getElementById("StartYearSelect").innerHTML = Years;
-    document.getElementById("EndYearSelect").innerHTML = Years;
+    StartYear.innerHTML = Years;
+    EndYear.innerHTML = Years;
 }
 
+//"main" functionality, creates calendar page/view based on arguments passed to it
 function CreateMonthDateTable(Year, Month, Id, Start) {
     let MonthDateTable = "\n<tr>\n";
+    //SelectedDate depends on arguments we give to the function
     let SelectedDate = new Date(Year, Month);
 
-    WeekDayNumber = 1;
-    while(SelectedDate.getMonth() == Month) {
+    let WeekDayNumber = 1; //Monday
+    while(SelectedDate.getMonth() == Month) { //while date is in choosen month we loop aka keep making date fields
 
 
         while(SelectedDate.getDay() != WeekDayNumber) {
+          //we are putting - for days from previous month, and changing day of a week mon-sun
             MonthDateTable += "<td>-</td>\n";
 
             WeekDayNumber += 1;
@@ -326,7 +347,7 @@ function CreateMonthDateTable(Year, Month, Id, Start) {
             }
 
         }
-        if(Start) {
+        if(Start) {//if we are working with start-date
             if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
                 MonthDateTable += "<td class='startdays today' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
             }
@@ -334,7 +355,7 @@ function CreateMonthDateTable(Year, Month, Id, Start) {
                 MonthDateTable += "<td class='startdays' id='s" + SelectedDate.getDate() + "' onclick='SetStartDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
             }
         }
-        else {
+        else {//if we are working with end-date, today or not makes the differnece
             if((SelectedDate.getDate() == ThisDay) && (SelectedDate.getMonth() == ThisMonth) && (SelectedDate.getFullYear() == ThisYear)) {
                 MonthDateTable += "<td class='enddays today' id='e" + SelectedDate.getDate() + "' onclick='SetEndDate(" + SelectedDate.getDate() + ")'>" + SelectedDate.getDate() + "</td>\n";
             }
@@ -355,9 +376,11 @@ function CreateMonthDateTable(Year, Month, Id, Start) {
 
     MonthDateTable += "</tr>";
 
+    //Id differentiates between start and end date section
     document.getElementById(Id).innerHTML = MonthDateTable;
 }
 
+//FROM HERE
 function SetStartDate(SelectedDate) {
     
     if(SelectedDate != "-") {
