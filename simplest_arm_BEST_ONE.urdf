@@ -1,0 +1,262 @@
+<robot name="simple_arm">
+
+    <material name="yellow">
+        <color rgba="1 1 0 1"/>
+    </material>
+    <material name="orange">
+        <color rgba="1 0.5 0 1"/>
+    </material>
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <link name="base">
+
+        <inertial>
+            <origin xyz="8e-05 0.02446 -0.00146" rpy="0 0 0"/>
+            <mass value="1000000"/>
+            <inertia ixx="0.00196" ixy="0" ixz="0" iyy="0.00133" iyz="-2e-05" izz="0.0023"/>
+        </inertial>
+
+        <visual>
+            <geometry>
+                <box size="0.7 0.7 0.05"/>
+                <!-- let base dimensions be l x b x h 0.7 0.7 0.10-->
+            </geometry>
+            <origin xyz="0 0 0.025"/>
+            <material name="black"/>
+        </visual>
+        
+        <collision>
+            <geometry>
+                <box size="0.7 0.7 0.05"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+    <joint name="joint0" type="continuous">
+        <parent link="base"/>
+        <child link="link0"/>
+        <origin xyz="0 0 0.025"/>
+        <!--z = h/2-->
+        <limit effort="200" lower="-3.14" upper="3.14" velocity="1.0"/>
+        <!-- dc -->
+        <axis xyz= "0 0 1"/>
+        <!-- can be either "1 0 0" or "0 1 0" and the same should be in joint 2 -->
+        
+    </joint>
+
+    <link name="link0">
+
+        <inertial>
+            <origin xyz="8e-05 0.02446 -0.00146" rpy="0 0 0"/>
+            <mass value="10000"/>
+            <inertia ixx="0.00196" ixy="0" ixz="0" iyy="0.00133" iyz="-2e-05" izz="0.0023"/>
+        </inertial>
+
+        <visual>
+            <geometry>
+                <box size="0.6 0.6 0.05"/>
+                <!-- let base dimensions be l x b x h 0.7 0.7 0.10-->
+            </geometry>
+            <origin xyz="0 0 0.025"/>
+            <material name="orange"/>
+        </visual>
+        
+        <collision>
+            <geometry>
+                <box size="0.6 0.6 0.05"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+    <joint name="joint1" type="revolute">
+        <parent link="link0"/>
+        <child link="link1"/>
+        <origin xyz="0 0 0.005"/>
+        <!--z = h/2-->
+        <limit effort="200" lower="-3.14" upper="3.14" velocity="1.0"/>
+        <!-- dc -->
+        <axis xyz= "1 0 0"/>
+        <!-- can be either "1 0 0" or "0 1 0" and the same should be in joint 2 -->
+        
+    </joint>
+    
+
+
+    <link name="link1">
+
+        <visual>
+            <geometry>
+                <cylinder length="1" radius="0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.55"/>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder length="1" radius="0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.55"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+        </inertial>
+
+    </link>
+
+
+    <joint name="joint2" type="revolute">
+        <parent link="link1"/>
+        <child link="link2"/>
+        <origin xyz="0 0 1.05"/>
+        <!--z = l1 + h/2-->
+        <limit effort="200" lower="-3.14" upper="3.14" velocity="1.0"/>
+        <!-- dc -->
+        <axis xyz= "1 0 0"/>
+        <!-- can be either "1 0 0" or "0 1 0" and the same should be in joint 1 -->
+    </joint>
+
+    
+    <link name="link2">
+
+        <visual>
+            <geometry>
+                <cylinder length="1" radius="0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <material name="yellow"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder length="1" radius="0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <material name="yellow"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+        </inertial>
+
+    </link>
+
+
+    <joint name="joint3" type="fixed">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz="0 0 1.05"/>
+        <!--z = l1 + h/2-->
+        <axis xyz= "0 0 0"/>
+        <!-- can be either "1 0 0" or "0 1 0" and the same should be in joint 1 -->
+    </joint>
+
+
+    <link name="link3">
+
+        <inertial>
+            <origin xyz="8e-05 0.02446 -0.00146" rpy="0 0 0"/>
+            <mass value="0.001"/>
+            <inertia ixx="0.00196" ixy="0" ixz="0" iyy="0.00133" iyz="-2e-05" izz="0.0023"/>
+        </inertial>
+
+        <visual>
+            <geometry>
+                <box size="0.2 0.1 0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+            <material name="orange"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="0.2 0.1 0.05"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+            <material name="orange"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+        </inertial>
+
+    </link>
+
+    <joint name="joint4" type="prismatic">
+        <parent link="link3"/>
+        <child link="gripper_part_B"/>
+        <limit effort="200.0" lower="-0.065" upper="0.0" velocity="1.0"/>
+        <origin xyz="0.08 0 0.05"/>
+    </joint>
+
+    <link name="gripper_part_B">
+
+        <visual>
+            <geometry>
+                <box size="0.025 0.08 0.15"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="0.025 0.08 0.15"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+            <material name="black"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+        </inertial>
+
+    </link>
+
+
+    <joint name="joint5" type="prismatic">
+        <parent link="link3"/>
+        <child link="gripper_part_W"/>
+        <limit effort="200.0" lower="0.0" upper="0.065" velocity="1.0"/>
+        <origin xyz="-0.08 0 0.05"/>
+    </joint>
+
+
+    <link name="gripper_part_W">
+
+        <visual>
+            <geometry>
+                <box size="0.025 0.08 0.15"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="0.025 0.08 0.15"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+            <material name="white"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+        </inertial>
+
+    </link>
+
+</robot>
